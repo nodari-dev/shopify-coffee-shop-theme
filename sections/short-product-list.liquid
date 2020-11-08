@@ -1,0 +1,24 @@
+<div class="container-full margin_45 white-bg">
+    <div class="container row start">
+        <h2 class="underline">Our products</h2>
+    </div>
+  </div>
+<div class="container-full margin_45 white-bg">
+    <div class="container row center margin_45">
+      {% for product in collections.all.products limit: 12%}
+        {% include 'product-el' %}
+      {% endfor %}
+    </div>
+    <div class="container row center margin_bottom_45">
+        <a href="/collections/all/" class="link-dark">SEE ALL</a>
+    </div>
+  </div>
+  {% schema %}
+  {
+    "name": "Short product list",
+    "presets": [{
+      "name": "Short product list",
+      "category": "Product"
+    }]
+  }
+{% endschema %}

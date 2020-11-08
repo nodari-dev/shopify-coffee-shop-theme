@@ -1,0 +1,37 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Best selling products" section on the Theme Editor.
+
+  Theme Store required settings
+  - Heading: title of the Best selling products section
+  - Subheading: description of the Best selling products section
+{%- endcomment -%}
+<section class="best-selling-products">
+  <div class="container-full row margin_45 white-bg">
+      <h2>Best selling</h2>
+    </div>
+    <div class="container-full row margin_45 white-bg">
+        {% for product in collections.best-selling-products.products limit:8 %}
+          <div class="product-el">
+            <a href="{{ product.url }}"></a>
+              <div class="product-el-image">
+                <img src="{{ product.featured_image | img_url: '1024x1024' }}" alt="">
+              </div>
+            <div class="product-el-text">
+              <h2>{{ product.title }}</h2>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Best selling products",
+    "presets": [{
+      "name": "Best selling products",
+      "category": "Product"
+    }]
+
+  }
+{% endschema %}

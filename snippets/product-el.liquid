@@ -1,0 +1,53 @@
+<div class="product-block">
+    <div class="top">
+      {% if product.compare_at_price > product.price %}
+        <div class="product-sale"><p>SALE</p></div>
+      {% endif %}
+      {% if product.featured_image != blank %}
+          {% include 'responsive-image' with
+            image: product.featured_image,
+            max_width: 700,
+            max_height: 800
+          %}
+      {% else %}
+      <img src="{{ product.featured_image | img_url: '1024x1024' }}" alt="">
+      {% endif %}
+      <a href="{{ product.url | within: collection }}"></a>
+    </div>
+    <div class="bottom column start">
+      
+      <a href="{{ product.url | within: collection }}"><h3>{{ product.title }}</h3></a>
+      <h3>
+        {% if product.compare_at_price > product.price %}
+        {% if product.price_varies %}
+          {%- assign sale_price = product.price | money -%}
+        {% else %}
+          {{ product.price | money }}
+        {% endif %}
+
+      {% else %}
+
+        {% if product.price_varies %}
+          {%- assign price = product.price | money -%}
+        {% else %}
+          {{ product.price | money }}
+        {% endif %}
+
+      {% endif %}
+
+      {% if product.compare_at_price > product.price %}
+        
+        {{ products.product.regular_price }}
+        <s>{{ product.compare_at_price | money }}</s>
+      {% endif %}
+
+      {% unless product.available %}
+        {{ 'products.product.sold_out' | t }}
+      {% endunless %}
+      </h3>
+      {% form 'product', product %}
+          <button class="dark-style radius-all" type="submit">Add to cart</button>
+        {{ form | payment_button }}
+      {% endform %}
+    </div>
+  </div>

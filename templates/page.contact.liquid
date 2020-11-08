@@ -1,0 +1,53 @@
+<div class="container-full full-height padding_45px dark-bg">
+  <div class="container">
+    <h1>{{ page.title }}</h1>
+    <div class="rte">
+      {{ page.content }}
+    </div>
+
+    {% form 'contact' , class: 'contact-page' %}
+
+      {% if form.posted_successfully? %}
+        <p class="form-success margin_45 radius-all">
+          {{ 'contact.form.post_success' | t }}
+        </p>
+      {% endif %}
+
+      {{ form.errors | default_errors }}
+      <div class="top-form">
+        <input type="text"
+          name="contact[name]"
+          id="ContactFormName"
+          placeholder="{{ 'contact.form.name' | t }}"
+          value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+        <input type="email"
+          name="contact[email]"
+          id="ContactFormEmail"
+          placeholder="{{ 'contact.form.email' | t }}"
+          value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+          spellcheck="false"
+          autocomplete="off"
+          autocapitalize="off">
+        <input type="tel"
+          name="contact[phone]"
+          id="ContactFormPhone"
+          placeholder="{{ 'contact.form.phone' | t }}"
+          value="{% if form[phone] %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+          pattern="[0-9\-]*">
+      </div>
+      <div class="bottom-form">
+        <textarea rows="10"
+        name="contact[body]"
+        id="ContactFormMessage"
+        placeholder="{{ 'contact.form.message' | t }}">
+        {%- if form.body -%}
+          {{- form.body -}}
+        {%- endif -%}
+      </textarea>
+      </div>
+
+      <button type="submit" class="light-style radius-all">{{ 'contact.form.send' | t }}</button>
+
+    {% endform %}
+  </div>
+</div>

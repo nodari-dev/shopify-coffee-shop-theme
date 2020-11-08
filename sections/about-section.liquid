@@ -1,0 +1,62 @@
+<div class="container-full column dark-bg">
+    <div class="container row center margin_45">
+        <h2>{{ section.settings.about_heading }}</h2>
+    </div>
+</div>
+
+<div class="container-full about dark-bg" {{ block.shopify_attributes }}>
+{% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'image' %}
+    <div class="container parent-about">
+      <div class="container about center-all margin_45">
+        <div class="text-inner">
+          <h2>{{ block.settings.heading_about }}</h2>
+          <p>{{ block.settings.info_about }}</p>
+        </div>
+      </div>
+      <div class="container about image margin_45" style="background-image: url({{ block.settings.image_about | img_url: 'master' }}");">
+      </div>
+    </div>
+      {% endcase %}
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "About",
+    "settings": [
+      {
+        "type": "text",
+        "id": "about_heading",
+        "label": "Heading",
+        "default": "Text here"
+      }
+    ],
+    "name": "items-gallery",
+    "blocks": [
+          {
+            "type": "image",
+            "name": "items-entry",
+            "settings": [
+                    {
+                      "type": "image_picker",
+                      "id": "image_about",
+                      "label": "Image of the product"
+                    },
+                    {
+                      "type": "text",
+                      "id": "heading_about",
+                      "label": "Text"
+                    },
+                    {
+                      "type": "textarea",
+                      "id": "info_about",
+                      "label": "Text"
+                    }
+              ]
+          }
+    ]
+  }
+
+{% endschema %}
