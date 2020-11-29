@@ -1,25 +1,19 @@
-<div class="container-full column dark-bg">
-    <div class="container row center margin_45">
-        <h2>{{ section.settings.about_heading }}</h2>
-    </div>
-</div>
 
-<div class="container-full about dark-bg" {{ block.shopify_attributes }}>
-{% for block in section.blocks %}
-    {% case block.type %}
-    {% when 'image' %}
-    <div class="container parent-about">
-      <div class="container about center-all margin_45">
-        <div class="text-inner">
-          <h2>{{ block.settings.heading_about }}</h2>
-          <p>{{ block.settings.info_about }}</p>
-        </div>
-      </div>
-      <div class="container about image margin_45" style="background-image: url({{ block.settings.image_about | img_url: 'master' }}");">
-      </div>
+<div class="container-full dark-bg">
+  <div class="container row margin_45">
+    <div class="about-wrap-page center-all">
+      <h2>Everyone has a story to tell, and we’re no different</h2>
     </div>
-      {% endcase %}
-  {% endfor %}
+    <div class="about-wrap-page center-all">
+      <div class="about"></div>
+    </div>
+    <div class="about-wrap-page center-all">
+      <div class="about"></div>
+    </div>
+    <div class="about-wrap-page">
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore ratione ad dolorem velit, possimus, repudiandae ipsum consequuntur quod unde reiciendis nam non fugiat doloribus officia dolores, laboriosam nulla totam corporis?</p>
+    </div>
+  </div>
 </div>
 
 {% schema %}

@@ -1,106 +1,27 @@
-<div class="container-full dark-bg">
-    <footer class="column center">
-      <div class="wrapper map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d20970.065262590906!2d24.70022895!3d48.92952455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1suk!2sua!4v1601556051388!5m2!1suk!2sua" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+<div class="container-full full-height vertical-center dark-bg" style="background-image: url({{ section.settings.footer_bg | img_url: 'master' }});">
+  <div class="container">
+    <footer class="row">
+      <div class="footer-wrap">
+        <h2 class="big">Humanity runs on coffee</h2>
       </div>
-      <div class="container column center">
-      <div class="wrapper info">
-        {% if shop.name %}
-          <h2>{{ shop.name }}</h2
-        {% endif %}
-        {% if section.settings.footer_text %}
-          <p>{{ section.settings.footer_text }}</p>
-        {% endif %}
-      {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
-      <ul class="footer-social">
-        {% for social in social_accounts %}
-          {%- assign social_handle = social | handleize -%}
-          {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
-          {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
-    
-          {% if settings[social_link] != blank %}
-            <li>
-              <a href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
-                {% include social_icon %}
-              </a>
-            </li>
-          {% endif %}
-    
-        {% endfor %}
-      </ul>
-    
-      {% if section.settings.show_payment_icons %}
-        {% unless shop.enabled_payment_types == empty %}
-          <span class="visually-hidden">{{ 'layout.footer.payment_methods' | t }}</span>
-          <ul class="payment-icons">
-            {% for type in shop.enabled_payment_types %}
-              <li>
-                {{ type | payment_type_svg_tag: class: 'icon' }}
-              </li>
-            {% endfor %}
-          </ul>
-        {% endunless %}
-      {% endif %}
-      {%- assign footer_linklist = section.settings.footer_linklist -%}
-      {% if linklists[footer_linklist].links.size > 0 %}
-        <ul>
-          {% for link in linklists[footer_linklist].links %}
-            <li><a class="link-light" href="{{ link.url }}">{{ link.title }}</a></li>
-          {% endfor %}
+      <div class="footer-wrap center-all">
+        <h2 class="margin_right_15">We are here</h2>
+        <ul class="row social radius-all">
+          <li><a href="">{% include "icon-facebook" %}</a></li>
+          <li><a href="">{% include "icon-twitter" %}</a></li>
+          <li><a href="">{% include "icon-youtube" %}</a></li>
         </ul>
-      {% endif %}
-    </div>
-    <div class="wrapper row center">
-      <div>
-        <p>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}. {{ powered_by_link }}</p>
       </div>
-    </div>
-  </div>
+      <div class="footer-wrap menu full-width row margin_top_30">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.122142493913!2d-122.4128846845441!3d37.78717721921855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808e4c2e1e5d%3A0x20cd7876b1d66114!2sStarbucks!5e0!3m2!1suk!2sua!4v1606343370381!5m2!1suk!2sua" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      </div>
+      <div class="footer-wrap full-width margin_top_15">
+        <p >{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}. {{ powered_by_link }}</p>
+      </div>
     </footer>
+  </div>
+  <div class="dark-image-bg"></div>
 </div>
-
-
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-<script>
-  $(document).ready(function () {
-    $("#open-menu").click(function () {
-        $(".mobile-menu").removeClass("disable-menu");
-        $(".page").addClass("no-scroll");
-    });
-    $("#close-menu").click(function () {
-        $(".mobile-menu").addClass("disable-menu");
-        $(".page").removeClass("no-scroll");
-    });
-    $("[href]").each(function () {
-        if (this.href == window.location.href) {
-            $(this).addClass("active-link");
-        }
-    });
-});
-</script>
-
-<script>
-
-  $('.product-slider').slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    fade: true,
-    draggable:false,
-    asNavFor: '.mini-product-slider'
-  });
-  $('.mini-product-slider').slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    asNavFor: '.product-slider',
-    dots: false,
-    centerMode: false,
-    draggable:false,
-    focusOnSelect: true
-  });
-
-</script>
 
 {% schema %}
   {
@@ -113,10 +34,9 @@
         "default": "footer"
       },
       {
-        "type": "checkbox",
-        "id": "show_payment_icons",
-        "label": "Show payment icons",
-        "default": false
+        "type": "image_picker",
+        "id": "footer_bg",
+        "label": "Footer background"
       },
       {
         "type": "text",

@@ -6,11 +6,14 @@
   - Heading: title of the Best selling products section
   - Subheading: description of the Best selling products section
 {%- endcomment -%}
-<section class="best-selling-products">
-  <div class="container-full row margin_45 white-bg">
-      <h2>Best selling</h2>
+<section class="best-selling-products full-height dark-bg margin_45">
+  <div class="container-full margin_30 dark-bg">
+    <div class="container margin_top_30">
+        <h2 class="underline">Best Selling</h2>
     </div>
-    <div class="container-full row margin_45 white-bg">
+  </div>
+    <div class="container-full dark-bg">
+      <div class="container row">
         {% for product in collections.best-selling-products.products limit:8 %}
           <div class="product-el">
             <a href="{{ product.url }}"></a>
@@ -22,6 +25,7 @@
             </div>
           </div>
       {% endfor %}
+      </div>
     </div>
 </section>
 

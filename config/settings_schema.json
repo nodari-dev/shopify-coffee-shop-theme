@@ -1,9 +1,9 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Starter theme",
+    "theme_name": "Cyber disko theme",
     "theme_version": "1.0.0",
-    "theme_author": "Shopify",
+    "theme_author": "Nodari Pylypyshak",
     "theme_documentation_url": "https:\/\/github.com\/Shopify\/starter-theme",
     "theme_support_url": "https:\/\/github.com\/Shopify\/starter-theme\/issues"
   },
@@ -146,7 +146,6 @@
       }
     ]
   },
-  
   {
     "name": "Favicon",
     "settings": [
@@ -185,6 +184,22 @@
   ]
   },
   {
+    "name": "Collection pages",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "no_product_image",
+        "label": "Choose image"
+      },
+      {
+        "id": "no_product_text",
+        "type": "text",
+        "label": "Text",
+        "default": "No products yet"
+      }
+    ]
+  },
+  {
     "name": "Product pages",
     "settings": [
       {
@@ -194,10 +209,10 @@
         "default": true
       },
       {
-        "id": "recomend-title",
+        "id": "recomend_title",
         "type": "text",
-        "label": "Heading",
-        "default": ""
+        "label": "Heading for product recomendations",
+        "default": "We also recomend"
       },
       {
         "type": "checkbox",
