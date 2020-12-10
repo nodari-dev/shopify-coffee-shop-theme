@@ -58,7 +58,9 @@
 
 <body class="page" id="{{ page_title | handle }}" class="template-{{ template.name | handle }}" class="white-bg">
   {% section 'header' %}
-  {% render 'header-mini'%}
+  {% if template.name != "article" %}
+    {% render 'header-mini'%}
+  {% endif %}
 
     <main role="main" id="MainContent">
       {{ content_for_layout }}
@@ -75,6 +77,7 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
 <script src="{{ 'mini-header.js' | asset_url }}"></script>
+<script src="{{ 'index.js' | asset_url }}"></script>
 <script>
   $(document).ready(function () {
     $("#open-menu").click(function () {
@@ -124,7 +127,7 @@
 <script>
 	$('#content').masonry({
 		itemSelector: '.box-item',
-    columnWidth: 100
+    columnWidth: 50
 	});
 </script>
 </body>

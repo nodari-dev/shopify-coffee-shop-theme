@@ -1,53 +1,58 @@
-<div class="product-block box-item">
-    <div class="top">
-      {% if product.compare_at_price > product.price %}
-        <div class="product-sale"><p>SALE</p></div>
-      {% endif %}
-      {% if product.featured_image != blank %}
-          {% include 'responsive-image' with
-            image: product.featured_image,
-            max_width: 700,
-            max_height: 800
-          %}
-      {% else %}
-      <img src="{{ product.featured_image | img_url: '1024x1024' }}" alt="">
-      {% endif %}
-      <a href="{{ product.url | within: collection }}"></a>
-    </div>
-    <div class="bottom column start">
-      
-      <a href="{{ product.url | within: collection }}"><h3>{{ product.title }}</h3></a>
-      <h3>
+<div class="product-block border-all">
+  <div class="top row">
+    <div class="left column horizontal-center">
+      <h5>{{ product.title | strip_html | truncatewords: 4 }}</h5>
+      <h5 class="normal">
         {% if product.compare_at_price > product.price %}
         {% if product.price_varies %}
           {%- assign sale_price = product.price | money -%}
         {% else %}
           {{ product.price | money }}
         {% endif %}
-
       {% else %}
-
         {% if product.price_varies %}
           {%- assign price = product.price | money -%}
         {% else %}
           {{ product.price | money }}
         {% endif %}
-
       {% endif %}
-
       {% if product.compare_at_price > product.price %}
-        
         {{ products.product.regular_price }}
         <s>{{ product.compare_at_price | money }}</s>
       {% endif %}
-
       {% unless product.available %}
         {{ 'products.product.sold_out' | t }}
       {% endunless %}
-      </h3>
+      </h5>
+    </div>
+    <div class="right row vertical-center">
+      <div class="add-wish vertical-center horizontal-right border-all">
+        {% render 'icon-empty-heart' %}
+      </div>
+      <div class="add-cart vertical-center horizontal-right border-all">
+        {% render 'icon-empty-product-cart' %}
+      </div>
+    </div>
+  </div>
+  <div class="bottom center-all">
+    <a href="{{ product.url | within: collection }}"></a>
+    {% if product.featured_image != blank %}
+        {% include 'responsive-image' with
+          image: product.featured_image,
+          max_width: 700,
+          max_height: 800
+        %}
+    {% else %}
+    <img src="{{ product.featured_image | img_url: '1024x1024' }}" alt="">
+    {% endif %}
+  </div>
+    <!-- <div class="bottom column start">
+      
+      <a href="{{ product.url | within: collection }}"></a>
+
       {% form 'product', product %}
           <button class="dark-style radius-all" type="submit">Add to cart</button>
         {{ form | payment_button }}
       {% endform %}
-    </div>
+    </div> -->
   </div>

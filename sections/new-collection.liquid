@@ -1,0 +1,16 @@
+<section class="new-collection white-bg">
+    {% for collection in collections limit: 1 %}
+        <div class="container-full full-height vertical-center white-bg">
+            <div class="container row">
+                <div class="new-collection-product">
+                    {% for product in collection.products limit: 1 %}
+                    <div class="top horizontal-center column">
+                        <h5>{{ product.title }}</h5>
+                    </div>
+                    {% endfor %}
+                    <div class="bottom center-all"></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</section>

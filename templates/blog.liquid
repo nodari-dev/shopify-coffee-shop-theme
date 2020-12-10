@@ -1,96 +1,33 @@
-{% paginate blog.articles by 5 %}
 
+<div class="container-full white-bg blog">
   {%- assign blog_title = blog.title -%}
-
-  {% if current_tags %}
-    {% capture blog_title %}{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}{% endcapture %}
-  {% endif %}
-
-  <h1>{{ blog_title }}</h1>
-
-  {% if blog.all_tags.size > 0 %}
-    <h2>{{ 'blogs.general.categories' | t }}</h2>
-
-    <ul>
-      {% for tag in blog.all_tags %}
-
-        {% if current_tags contains tag %}
-          <li>{{ tag }}</li>
-        {% else %}
-          <li>{{ tag | link_to_tag: tag }}</li>
-        {% endif %}
-
+  <h1 class="margin_top_30">{{ blog_title }}</h1>
+  <div class="container row start margin_45">
+    {% paginate blog.articles by 12 %}
+        {% for article in blog.articles %}
+        <div class="blog-block row">
+          {% if article.image %}
+            <div class="media" style="background-image: url({{ article.image | img_url: 'master' }}"></div>
+            {% else %}
+            <div class="media" style="background-image: url({{ article.image | img_url: 'master' }}"></div>  
+            {% endif %}
+          <div class="description white-bg padding_2vw">
+            <h2>{{ article.title | strip_html | truncatewords: 5 }}</h2>
+              {% if article.excerpt.size > 0 %}
+                {{ article.excerpt }}
+              {% else %}
+                <p>
+                  {{ article.content | strip_html | truncatewords: 50 }}
+                </p>
+              {% endif %}
+              <a class="link-dark" href="{{ article.url }}">Read more</a>
+          </div>
+      </div>
       {% endfor %}
-    </ul>
-  {% endif %}
-
-
-  {% comment %}
-
-  Article Previews
-  ====================
-  {% endcomment %}
-
-  {% for article in blog.articles %}
-    <h3>
-      <a href="{{ article.url }}">{{ article.title }}</a>
-    </h3>
-
-    {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
-
-    <p>
-      {{ 'blogs.article.author_on_date_html' | t: author: article.author, date: date }}
-    </p>
-
-    {% if article.image %}
-      <a href="{{ article.url }}">
-        {% include 'responsive-image' with
-          image: article.image,
-          max_width: 1024,
-          max_height: 1024
-        %}
-      </a>
-    {% endif %}
-
-    <div class="rte">
-      {% if article.excerpt.size > 0 %}
-        {{ article.excerpt }}
-      {% else %}
-        <p>
-          {{ article.content | strip_html | truncatewords: 100 }}
-        </p>
+      {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
       {% endif %}
-    </div>
 
-    {% if blog.comments_enabled? or article.tags.size > 0 %}
-      <ul>
-        {% if blog.comments_enabled? %}
-          <li>
-            <a href="{{ article.url }}#comments">
-              {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
-            </a>
-          </li>
-        {% endif %}
-
-        {% if article.tags.size > 0 %}
-          {% for tag in article.tags %}
-            <li>
-              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
-              {% unless forloop.last %}, {% endunless %}
-            </li>
-          {% endfor %}
-        {% endif %}
-      </ul>
-    {% endif %}
-
-    <p>
-      <a href="{{ article.url }}">{{ 'blogs.article.read_more' | t }} &rarr;</a>
-    </p>
-
-  {% endfor %}
-
-  {% if paginate.pages > 1 %}
-    {% include 'pagination' %}
-  {% endif %}
-
-{% endpaginate %}
+    {% endpaginate %}
+  </div>
+</div>

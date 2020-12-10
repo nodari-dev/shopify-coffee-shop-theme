@@ -10,154 +10,114 @@
   Theme Store optional settings
   - Home page only: only shows on the home page
 {%- endcomment -%}
-  <div class="mobile-menu disable-menu">
-    <ul class="menu mobile">
-      {% for link in linklists[section.settings.menu].links %}
-        {% if link.links != blank %}
-          <li>
-            <a href="{{ link.url }}">
-              {{ link.title }}
-              {% include 'icon-arrow-down' %}
-            </a>
-            <ul>
-              {% for childlink in link.links %}
-                <li>
-                  <a href="{{ childlink.url }}">
-                    {{ childlink.title }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        {% else %}
-          <li>
-            <a href="{{ link.url }}">
-              {{ link.title }}
-            </a>
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </div>
-  <div class="container-full white-bg" id="header">
+{% if template.name == "article" %}
+  <div class="container-full white-bg">
     <div class="container">
-        {%- if section.settings.announcement_bar_enabled -%}
-          <div>
-            {%- if section.settings.announcement_bar_home_page_only == false or template.name == 'index' -%}
-              {%- if section.settings.announcement_bar_link != blank -%}
-                <a href="{{ section.settings.announcement_bar_link }}">
-                  {{ section.settings.announcement_bar_text | escape }}
-                </a>
-              {%- else -%}
-                <p>{{ section.settings.announcement_bar_text | escape }}</p>
-              {%- endif -%}
-            {%- endif -%}
-          </div>
-        {%- endif -%}
-      
-        <header role="banner" class="header">
-            <div class="logo-block">
-              <a href="/" class="logo"><h2>{{shop.name}}</h2></a>
-            </div>
-            
-          <div class="header-actions">
-            <!-- {% if shop.customer_accounts_enabled %}
-              <ul>
-                {% if customer %}
-                  <li>
-                    {% if customer.first_name != blank %}
-                      {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-                      {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
-                    {% else %}
-                      <a href="/account">{{ 'layout.customer.account' | t }}</a>
-                    {% endif %}
-                  </li>
-                  <li>
-                    {{ 'layout.customer.log_out' | t | customer_logout_link }}
-                  </li>
-                {% else %}
-                  <li>
-                    {{ 'layout.customer.log_in' | t | customer_login_link }}
-                  </li>
-                  <li>
-                    {{ 'layout.customer.create_account' | t | customer_register_link }}
-                  </li>
-                {% endif %}
+      <header role="banner" class="header">
+        <div class="logo-with-menu row vertical-center">
+          <a href="/" class="logo"><h2>{{shop.name}}</h2></a>
+          <nav role="navigation row" class="navigation">
+            <ul class="menu desktop row">
+              <li><a href="#">Back to all posts</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="prev-page"></div>
+        <div class="next-page"></div>
+    </header>
+    </div>
+  </div>
+{% else %}
+<div class="container-full white-bg" id="header">
+  <div class="container">
+      <header role="banner" class="header">
+          <div class="logo-with-menu row vertical-center">
+            <a href="/" class="logo"><h2>{{shop.name}}</h2></a>
+            <nav role="navigation row" class="navigation">
+              <ul class="menu desktop row">
+                {% for link in linklists[section.settings.menu].links %}
+                  {% if link.links != blank %}
+                    <li>
+                      <a href="{{ link.url }}">
+                        {{ link.title }}
+                      </a>
+                      <ul>
+                        {% for childlink in link.links %}
+                          <li>
+                            <a href="{{ childlink.url }}">
+                              {{ childlink.title }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% else %}
+                    <li>
+                      <a href="{{ link.url }}">
+                        {{ link.title }}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
               </ul>
-            {% endif %} -->
-        
-            <form action="/search" method="get" role="search" class="header-form">
-              <input class="radius-left dark-style not-active" type="search"
-                name="q"
-                id="Search-{{ section.id }}"
-                value="{{ search.terms | escape }}"
-                placeholder="{{ 'general.search.placeholder' | t }}">
-        
-              <button type="submit" class="radius-none">
-                {% include 'icon-search' %}
-              </button>
-            </form>
-            <a href="/cart" class="cart center-all radius-all">
-              {% render 'icon-cart' %}
-              {% if cart.item_count > 0 %}
-                <span class="center-all">{{ cart.item_count }}</span>
-              {% endif %}
-            </a>
+            </nav>
           </div>
-        </header>
-      
-        <nav role="navigation" class="navigation">
-          <ul class="menu desktop">
-            {% for link in linklists[section.settings.menu].links %}
-              {% if link.links != blank %}
+          
+        <div class="header-actions">
+          <!-- {% if shop.customer_accounts_enabled %}
+            <ul>
+              {% if customer %}
                 <li>
-                  <a href="{{ link.url }}">
-                    {{ link.title }}
-                  </a>
-                  <ul>
-                    {% for childlink in link.links %}
-                      <li>
-                        <a href="{{ childlink.url }}">
-                          {{ childlink.title }}
-                        </a>
-                      </li>
-                    {% endfor %}
-                  </ul>
+                  {% if customer.first_name != blank %}
+                    {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+                    {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+                  {% else %}
+                    <a href="/account">{{ 'layout.customer.account' | t }}</a>
+                  {% endif %}
+                </li>
+                <li>
+                  {{ 'layout.customer.log_out' | t | customer_logout_link }}
                 </li>
               {% else %}
                 <li>
-                  <a href="{{ link.url }}">
-                    {{ link.title }}
-                  </a>
+                  {{ 'layout.customer.log_in' | t | customer_login_link }}
+                </li>
+                <li>
+                  {{ 'layout.customer.create_account' | t | customer_register_link }}
                 </li>
               {% endif %}
-            {% endfor %}
-          </ul>
-          <button class="mobile radius-all menu-open dark-style" id="open-menu">
-            Menu
-          </button>
-        </nav>
-      </div>
-      {% if template == 'index' %}
-        <div class="container-full row full-height-nav dark-bg" style="background-image: url({{ section.settings.header_block_bg | img_url: 'master' }}); background-position:{{ section.settings.header_block_bg_pos }};">
-          {% assign products = collections.all.products | sort: 'published_at' | reverse %}
-          {% for product in products limit:1 %}
-            <div class="container header-message vertical-center">
-                <img src="{{ section.settings.header_message_image | img_url: 'master' }}" alt="">
-                <div class="text">
-                  <h1 class="big">Welcome<br>to<br>{{ shop.name }}</h1>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium quod recusandae, rem earum perspiciatis ad molestiae ratione? Dolore aliquid quo saepe laudantium ea, eos ab fugiat voluptatibus nobis numquam. Ipsam.</p>
-                  <a href="#" class="link-light">Read more</a>
-                </div>
-              </div>
-            <div class="dark-image-bg"></div>
-        {% endfor %}
-            <!-- <video class="header-video" autoplay muted loop id="header-video">
-                <source src="https://cdn.shopify.com/s/files/1/0469/8485/5706/files/video.mp4?v=1598960652" type="video/mp4">
-            </video> -->
+            </ul>
+          {% endif %} -->
+          <form action="/search" method="get" role="search" class="header-form">
+            <input class="radius-left dark-style not-active" type="search"
+              name="q"
+              id="Search-{{ section.id }}"
+              value="{{ search.terms | escape }}"
+              placeholder="{{ 'general.search.placeholder' | t }}">
+            <button type="submit" class="radius-none">
+              {% include 'icon-search' %}
+            </button>
+          </form>
+          <a href="/cart" class="cart center-all radius-all">
+            {% render 'icon-cart' %}
+            {% if cart.item_count > 0 %}
+              <span class="center-all">{{ cart.item_count }}</span>
+            {% endif %}
+          </a>
         </div>
-      {% endif %}
+      </header>
+    </div>
+    {% if template == 'index' %}
+      <div class="container-full row full-height-nav white-bg">
+        <div class="header-left white-bg vertical-center">
+          <h1 class="big">Humanity <br>runs<br> on<br> coffee</h1>
+        </div>
+        <div class="header-right" style="background-image: url({{ section.settings.header_block_bg | img_url: 'master' }}); background-position:{{ section.settings.header_block_bg_pos }};">
+        </div>
       </div>
+    {% endif %}
+    </div>
+{% endif %}
     {% schema %}
       {
         "name": "Header",

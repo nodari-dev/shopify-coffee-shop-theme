@@ -1,4 +1,6 @@
-{% if cart.item_count > 0 %}
+<div class="container-full">
+  <div class="container">
+    {% if cart.item_count > 0 %}
   <h1>{{ 'cart.general.title' | t }}</h1>
 
   <form action="/cart" method="post" novalidate>
@@ -126,3 +128,5 @@
     <p>{{ 'cart.general.cookies_required' | t }}</p>
   </div>
 {% endif %}
+  </div>
+</div>

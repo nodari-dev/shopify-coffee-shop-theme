@@ -11,7 +11,7 @@
   - Show author
   - Show date
 {%- endcomment -%}
-<section class="dark-bg margin_45 full-height center-all column">
+<section class="white-bg full-height center-all column">
   {% if section.settings.title != blank %}
   <div class="container-full margin_30">
     <div class="container">
@@ -19,7 +19,7 @@
     </div>
   </div>
   {% endif %}
-  <div class="container-full">
+  <div class="container-full margin_45">
     <div class="container colunm">
       <div class="slider blog-slider">
         {%- assign blog = blogs[section.settings.blog] -%}
@@ -30,7 +30,7 @@
             <div class="left" style="background-image: url({{ article.image | img_url: 'master' }}"></div>
           {% endif %}
           <div class="right">
-            <h2>{{ article.title }}</h2>
+            <h2>{{ article.title | strip_html | truncatewords: 6 }}</h2>
           </div>
           <div class="dark-image-bg"></div>
         </div>
@@ -42,7 +42,7 @@
         <div class="arrow-left center-all">{% render "icon-arrow-left" %}</div>
         <div class="arrow-right center-all">{% render "icon-arrow-right" %}</div>
       </div>
-      <a href="#" class="link-light">Read our blog</a>
+      <a href="#" class="link-dark">Read our blog</a>
     </div>
   </div>
 </section>

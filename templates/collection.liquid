@@ -1,32 +1,20 @@
-{% paginate collection.products by 12 %}
-{% section "big-image-block" %}
-<div class="container-full white-bg margin_45">
-  <div class="container full-height center-all" id="content">
+{% paginate collection.products by 11 %}
+<div class="container-full white-bg">
+  <div class="container margin_45 row start">
+    {% if collection.image %}
+      <div class="product-block collection-info-block radius-all vertical-center" style="background-image: url('{{ collection | img_url: '1024x' }}');">
+    {% else %}
+      <div class="product-block collection-info-block radius-all vertical-center" style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
+    {% endif %}
+      <h2>{{ collection.title }}</h2>
+    </div>
     {% for product in collection.products %}
       {% include 'product-el' %}
     {% else %}
-      {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
-        {% for i in (1..8) %}
-          <a href="#">
-            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
-          </a>
-
-          <p>
-            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
-          </p>
-
-          <p>
-            {{ 1999 | money }}
-          </p>
-        {% endfor %}
-      {% else %}
       {% include 'no-product' %}
-      {% endif %}
-
     {% endfor %}
   </div>
-  </div>
+</div>
 
   {% if paginate.pages > 1 %}
     {% include 'pagination' %}
