@@ -1,10 +1,10 @@
 {% paginate collection.products by 11 %}
 <div class="container-full white-bg">
-  <div class="container margin_45 row start">
+  <div class="container margin_45 three-per-row">
     {% if collection.image %}
-      <div class="product-block collection-info-block radius-all vertical-center" style="background-image: url('{{ collection | img_url: '1024x' }}');">
+      <div class="product-block grid-el collection-info-block radius-all vertical-center" style="background-image: url('{{ collection | img_url: '1024x' }}');">
     {% else %}
-      <div class="product-block collection-info-block radius-all vertical-center" style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
+      <div class="product-block grid-el collection-info-block radius-all vertical-center" style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
     {% endif %}
       <h2>{{ collection.title }}</h2>
     </div>
@@ -14,9 +14,8 @@
       {% include 'no-product' %}
     {% endfor %}
   </div>
-</div>
-
   {% if paginate.pages > 1 %}
     {% include 'pagination' %}
   {% endif %}
+</div>
 {% endpaginate %}

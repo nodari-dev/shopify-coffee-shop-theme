@@ -1,4 +1,144 @@
-{% section 'product' %}
+  <!-- <div class="container-full dark-bg">
+      <div class="container margin_30">
+          {% render 'breadcrumbs' %}
+      </div>
+  </div> -->
+<div class="container-full dark-bg">
+  {% form 'product', product, class: 'product-main-form row' %}
+<div class="container w_65 full-height-nav product-image" style="background-image: url('{{ product.featured_image | img_url: '1440x' }}');">
+<!-- {% if product.compare_at_price > product.price %}
+  <div class="product-sale">
+      <h3>sale<h3>
+      </div>
+      {% endif %} -->
+      <!-- HERE-ENDS -->
+      <!-- <div class="slider product-slider">
+        {% if product.variants.size > 1 %}
+            {% for product_option in product.options_with_values %}
+                {% if product_option.name == 'Color' %}
+                    {% for value in product_option.values %}
+                        {% for variant in product.variants %}
+                            {% if variant.title contains value %}
+                                <div class="product-el-photo">
+                                    <div class="product-img">
+                                        <img src="{{ variant.image | img_url: '1024x1024' }}" alt="{{ variant.image.alt | escape }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                {% else %}
+                {% for image in product.images %}
+                <div class="product-el-photo">
+                    <div class="product-img">
+                        <img src="{{ image.src | product_img_url: '1024x' }}">
+                    </div>
+                </div>
+                {% endfor %}
+              {% endif %}
+          </div> -->
+          <!-- <div class="product-image-navigation">
+              <div class="slider mini-product-slider">
+                {% if product.variants.size > 1 %}
+                  {% for variant in product.variants %}
+                  <div class="product-el-photo">
+                    <div class="top">
+                        <img src="{{ variant.image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}"></div>
+                    <div class="bottom"><p>{{ variant.title }}</p><div class="overlay"></div></div>
+                  </div>
+                  {% endfor %}
+                  {% else %}
+                  {% if product.images.size > 1 %}
+                    {% for image in product.images %}
+                    <div class="product-el-photo default">
+                        <div class="top">
+                            <img src="{{ image.src | product_img_url: '1024x' }}" alt="{{ image.alt | escape }}">
+                        </div>
+                    </div>
+                    {% endfor %}
+                  {% endif %}
+                {% endif %}
+              </div>
+          </div> -->
+          <!-- HERE-ENDS -->
+      </div>
+      <div class="container w_65">
+        <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+    </div>
+      <!-- <div class="container w_35 full-height-nav product-description">
+          <h1>{{ product.title }}</h1>
+          <h2 class="margin_bottom_30">
+              {% if product.compare_at_price > product.price %}
+                  {% if product.price_varies %}
+                      {%- assign sale_price = product.price | money -%}
+                  {% else %}
+                      {{ product.price | money }}
+                  {% endif %}
+              {% else %}
+                  {% if product.price_varies %}
+                      {%- assign price = product.price | money -%}
+                  {% else %}
+                      {{ product.price | money }}
+                  {% endif %}
+              {% endif %}
+              {% if product.compare_at_price > product.price %}
+                  {{ products.product.regular_price }}
+                  <s>{{ product.compare_at_price | money }}</s>
+              {% endif %}
+              {% unless product.available %}
+                  {{ 'products.product.sold_out' | t }}
+              {% endunless %}
+          </h2>
+          <div class="margin_30">
+            {{ product.description }}
+        </div>
+        <div class="product-action vertical-center row radius-all">
+          <select name="id" id="ProductSelect-{{ section.id }}" class="select-product-list radius-top-left">
+              {% for variant in product.variants %}
+                  {% if variant.available %}
+                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">
+                          {{ variant.title }}
+                          -
+                          {{ variant.price | money_with_currency }}</option>
+                  {% else %}
+                      <option disabled="disabled">
+                          {{ variant.title }}
+                          -
+                          {{ 'products.product.sold_out' | t }}
+                      </option>
+                  {% endif %}
+              {% endfor %}
+            </select>
+            <input min="1" type="number" id="quantity" class="product-page radius-top-right" name="quantity" value="1" />
+                <button type="submit" name="add" id="AddToCart" class="radius-bottom product-page light-style" data-cart-url="{{ routes.cart_url }}">
+                    <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                </button>
+                {% if section.settings.enable_payment_button %}
+                    {{ form | payment_button }}
+                {% endif %}
+                </div>
+              {% endform %}
+
+              <h2 class="margin_top_30">Collections:</h2>
+              <div class="product-collection-list">
+                {% for collection in product.collections %}
+                    <a class="light-style product-collection-el" href="{{ collection.url }}">{{ collection.title }}</a>
+                {% endfor %}
+                {% for collection in product.collections %}
+                    <a class="light-style product-collection-el" href="{{ collection.url }}">{{ collection.title }}</a>
+                {% endfor %}
+              </div>
+          </div> -->
+          {% if section.settings.show_share_buttons %}
+              <div class="wrapper-product share margin_top_30 row center">
+                  {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+              </div>
+          {% endif %}
+    </div>
+  <div class="container-full dark-bg row start padding_bottom_45px">
+  </div>
 
 <script type="application/ld+json">
 {

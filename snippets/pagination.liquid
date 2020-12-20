@@ -1,26 +1,26 @@
 <div class="container-full white-bg margin_bottom_30">
   <div class="container">
-    <ul class="pagination-custom row center">
+    <ul class="pagination-custom row start">
       {% if paginate.previous %}
-        <li class="radius-all"><a href="{{ paginate.previous.url }}" title="{{ paginate.previous.title }}">Prev</p></a></li>
+        <li><a href="{{ paginate.previous.url }}" title="{{ paginate.previous.title }}">{% include "icon-arrow-left" %}</p></a></li>
       {% endif %}
     
       {% for part in paginate.parts %}
         {% if part.is_link %}
-          <li class="radius-all">
+          <li class="">
             <a href="{{ part.url }}" title="">{{ part.title }}</a>
           </li>
         {% else %}
           {% if part.title == paginate.current_page %}
-            <li class="radius-all active"><span>{{ part.title }}</span></li>
+            <li class="active"><span>{{ part.title }}</span></li>
           {% else %}
-            <li class="radius-all"><span>{{ part.title }}</span></li>
+            <li><span>{{ part.title }}</span></li>
           {% endif %}
         {% endif %}
       {% endfor %}
     
       {% if paginate.next %}
-        <li class="radius-all"><a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}">Next</a></li>
+        <li><a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}">{% include "icon-arrow-right" %}</a></li>
       {% endif %}
     </ul>
   </div>

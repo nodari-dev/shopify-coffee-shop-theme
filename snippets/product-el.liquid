@@ -1,5 +1,8 @@
-<div class="product-block border-all">
-  <div class="top row">
+<div class="product-block radius-all white-bg grid-el">
+  <div class="product-block-image radius-all" style="background-image: url('{{ product.featured_image | img_url: '1024x' }}');"> 
+    <a href="{{ product.url | within: collection }}"></a>
+  </div>
+  <div class="top row radius-bottom padding_1vw">
     <div class="left column horizontal-center">
       <h5>{{ product.title | strip_html | truncatewords: 4 }}</h5>
       <h5 class="normal">
@@ -34,25 +37,4 @@
       </div>
     </div>
   </div>
-  <div class="bottom center-all">
-    <a href="{{ product.url | within: collection }}"></a>
-    {% if product.featured_image != blank %}
-        {% include 'responsive-image' with
-          image: product.featured_image,
-          max_width: 700,
-          max_height: 800
-        %}
-    {% else %}
-    <img src="{{ product.featured_image | img_url: '1024x1024' }}" alt="">
-    {% endif %}
-  </div>
-    <!-- <div class="bottom column start">
-      
-      <a href="{{ product.url | within: collection }}"></a>
-
-      {% form 'product', product %}
-          <button class="dark-style radius-all" type="submit">Add to cart</button>
-        {{ form | payment_button }}
-      {% endform %}
-    </div> -->
   </div>

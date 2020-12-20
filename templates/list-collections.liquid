@@ -4,18 +4,18 @@
 
 <section class="collections white-bg">
   <div class="container-all white-bg">
-    <div class="container margin_45 white-bg row start">
+    <div class="container four-per-row margin_45 white-bg row start">
       {% paginate collections by 9 %}
       {% for collection in collections %}
         {% unless collection.handle == 'frontpage' %}
-        <div class="collection-block">
+        <div class="collection-block grid-el radius-all">
           {% if collection.image %}
-            <div class="left center-all" style="background-image: url('{{ collection.image.src | collection_img_url: '1024x' }}');">
+            <div class="left center-all radius-all"" style="background-image: url('{{ collection.image.src | collection_img_url: '1024x' }}');">
           {% else %}
-            <div class="left center-all" style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
+            <div class="left center-all radius-all"" style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
           {% endif %}
             <h2>{{ collection.title }}</h2>
-            <div class="dark-image-bg"></div>
+            <div class="dark-image-bg radius-all""></div>
           </div>
           <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: title }}"></a>
         </div>

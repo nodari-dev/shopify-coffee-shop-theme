@@ -10,24 +10,6 @@
   Theme Store optional settings
   - Home page only: only shows on the home page
 {%- endcomment -%}
-{% if template.name == "article" %}
-  <div class="container-full white-bg">
-    <div class="container">
-      <header role="banner" class="header">
-        <div class="logo-with-menu row vertical-center">
-          <a href="/" class="logo"><h2>{{shop.name}}</h2></a>
-          <nav role="navigation row" class="navigation">
-            <ul class="menu desktop row">
-              <li><a href="#">Back to all posts</a></li>
-            </ul>
-          </nav>
-        </div>
-        <div class="prev-page"></div>
-        <div class="next-page"></div>
-    </header>
-    </div>
-  </div>
-{% else %}
 <div class="container-full white-bg" id="header">
   <div class="container">
       <header role="banner" class="header">
@@ -62,14 +44,13 @@
               </ul>
             </nav>
           </div>
-          
         <div class="header-actions">
-          <!-- {% if shop.customer_accounts_enabled %}
-            <ul>
+          {% if shop.customer_accounts_enabled %}
+            <ul class="row">
               {% if customer %}
                 <li>
                   {% if customer.first_name != blank %}
-                    {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+                    {% capture first_name %}<a href="/account">{{ customer.first_name }} /</a>{% endcapture %}
                     {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
                   {% else %}
                     <a href="/account">{{ 'layout.customer.account' | t }}</a>
@@ -87,7 +68,7 @@
                 </li>
               {% endif %}
             </ul>
-          {% endif %} -->
+          {% endif %}
           <form action="/search" method="get" role="search" class="header-form">
             <input class="radius-left dark-style not-active" type="search"
               name="q"
@@ -101,7 +82,11 @@
           <a href="/cart" class="cart center-all radius-all">
             {% render 'icon-cart' %}
             {% if cart.item_count > 0 %}
-              <span class="center-all">{{ cart.item_count }}</span>
+              {% if cart.item_count > 9 %}
+                <span class="center-all">9+</span>
+                {% else %}
+                <span class="center-all">{{ cart.item_count }}</span>
+              {% endif %}
             {% endif %}
           </a>
         </div>
@@ -117,7 +102,6 @@
       </div>
     {% endif %}
     </div>
-{% endif %}
     {% schema %}
       {
         "name": "Header",
@@ -245,4 +229,3 @@
         }
       </script>
     {% endif %}
-

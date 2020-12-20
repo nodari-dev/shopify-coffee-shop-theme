@@ -1,27 +1,28 @@
 
 <div class="container-full white-bg blog">
   {%- assign blog_title = blog.title -%}
-  <h1 class="margin_top_30">{{ blog_title }}</h1>
   <div class="container row start margin_45">
     {% paginate blog.articles by 12 %}
         {% for article in blog.articles %}
-        <div class="blog-block row">
-          {% if article.image %}
-            <div class="media" style="background-image: url({{ article.image | img_url: 'master' }}"></div>
-            {% else %}
-            <div class="media" style="background-image: url({{ article.image | img_url: 'master' }}"></div>  
-            {% endif %}
-          <div class="description white-bg padding_2vw">
-            <h2>{{ article.title | strip_html | truncatewords: 5 }}</h2>
-              {% if article.excerpt.size > 0 %}
-                {{ article.excerpt }}
-              {% else %}
-                <p>
-                  {{ article.content | strip_html | truncatewords: 50 }}
-                </p>
-              {% endif %}
-              <a class="link-dark" href="{{ article.url }}">Read more</a>
+        {% if article.image %}
+          <div class="blog-block row radius-all" style="background-image: url({{ article.image | img_url: 'master' }}">
+        {% else %}
+          <div class="blog-block row radius-all" style="background-image: url({{ 'blog.jpg' | asset_url' }}">
+        {% endif %}
+          <div class="description padding_2vw column horizontal-center">
+            <h2>{{ article.title | strip_html | truncatewords: 15}}</h2>
+            <p>{{ article.content | strip_html | truncatewords: 30 }}</p>
+            <a href="{{ article.url }}" class="link-dark">Read more</a>
           </div>
+          {% if article.image %}
+            <div class="media" style="background-image: url({{ article.image | img_url: 'master' }}">
+          {% else %}
+            <div class="media" style="background-image: url({{ 'blog.jpg' | asset_url }}">
+          {% endif %}
+            <div class="dark-image-bg radius-all"></div>
+          </div>
+          <div class="dark-image-bg radius-all"></div>
+          <a class="" href="{{ article.url }}"></a>
       </div>
       {% endfor %}
       {% if paginate.pages > 1 %}

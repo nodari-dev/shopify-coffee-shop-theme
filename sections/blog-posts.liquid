@@ -23,21 +23,22 @@
     <div class="container colunm">
       <div class="slider blog-slider">
         {%- assign blog = blogs[section.settings.blog] -%}
-        {% for article in blog.articles limit: 8 %}
-        <div class="blog-el radius-all">
-          <a href="{{ article.url }}"></a>
-          {% if article.image %}
-            <div class="left" style="background-image: url({{ article.image | img_url: 'master' }}"></div>
-          {% endif %}
-          <div class="right">
-            <h2>{{ article.title | strip_html | truncatewords: 6 }}</h2>
-          </div>
-          <div class="dark-image-bg"></div>
-        </div>
+		{% for article in blog.articles limit: 8 %}
+			{% if article.image %}
+				<div class="blog-el radius-all" style="background-image: url('{{ article.image | img_url: 'master' }}');">
+			{% else %}
+			<div class="blog-el radius-all" style="background-image: url('{{ 'blog.jpg' | asset_url }}');">
+				{% endif %}
+			<a href="{{ article.url }}"></a>
+			<div class="right">
+				<h2>{{ article.title | strip_html | truncatewords: 6 }}</h2>
+			</div>
+			<div class="dark-image-bg radius-all"></div>
+			</div>
         {% endfor %}
       </div>
     </div>
-    <div class="container row between margin_top_15">
+    <div class="container row between vertical-center margin_top_15">
       <div class="blog-slider-nav">
         <div class="arrow-left center-all">{% render "icon-arrow-left" %}</div>
         <div class="arrow-right center-all">{% render "icon-arrow-right" %}</div>
