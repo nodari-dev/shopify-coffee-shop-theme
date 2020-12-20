@@ -7,12 +7,12 @@
   - Subheading: description of the Product recomendations section
 {%- endcomment -%}
 <section data-section-id="{{ section.id }}" data-section-type="product-recommendations">
-  <div class="container w_65 row dark-bg">
+  <div class="container w_65 two-per-row dark-bg">
     {% if settings.recomend_title == "" %}
     {% else %}
         <h2>{{ settings.recomend_title }}</h2>
     {% endif %}
-      <div class="product-recommendations" data-product-id="{{ product.id }}" data-limit="3">
+      <div class="product-recommendations" data-product-id="{{ product.id }}" data-limit="4">
         {%- if recommendations.products_count > 0 -%}
             {%- for product in recommendations.products -%}
               {% include 'product-el' %}

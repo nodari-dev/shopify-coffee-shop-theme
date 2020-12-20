@@ -5,7 +5,7 @@
   </div> -->
 <div class="container-full dark-bg">
   {% form 'product', product, class: 'product-main-form row' %}
-<div class="container w_65 full-height-nav product-image" style="background-image: url('{{ product.featured_image | img_url: '1440x' }}');">
+<div class="container w_65 full-height-nav product-image radius-bottom-right" style="background-image: url('{{ product.featured_image | img_url: '1440x' }}');">
 <!-- {% if product.compare_at_price > product.price %}
   <div class="product-sale">
       <h3>sale<h3>
@@ -67,8 +67,8 @@
       <div class="container w_65">
         <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
     </div>
-      <!-- <div class="container w_35 full-height-nav product-description">
-          <h1>{{ product.title }}</h1>
+      <div class="container w_35 full-height-nav product-description">
+          <h1 class="margin_top_30">{{ product.title }}</h1>
           <h2 class="margin_bottom_30">
               {% if product.compare_at_price > product.price %}
                   {% if product.price_varies %}
@@ -130,15 +130,20 @@
                     <a class="light-style product-collection-el" href="{{ collection.url }}">{{ collection.title }}</a>
                 {% endfor %}
               </div>
-          </div> -->
+          </div>
           {% if section.settings.show_share_buttons %}
               <div class="wrapper-product share margin_top_30 row center">
                   {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
               </div>
           {% endif %}
     </div>
-  <div class="container-full dark-bg row start padding_bottom_45px">
-  </div>
+
+    <div class="product-description-block">
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque praesentium hic tempore iste ipsa earum reiciendis. Vel a in molestiae atque adipisci nesciunt nisi autem, sed assumenda blanditiis architecto aliquam?</p>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque praesentium hic tempore iste ipsa earum reiciendis. Vel a in molestiae atque adipisci nesciunt nisi autem, sed assumenda blanditiis architecto aliquam?</p>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque praesentium hic tempore iste ipsa earum reiciendis. Vel a in molestiae atque adipisci nesciunt nisi autem, sed assumenda blanditiis architecto aliquam?</p>
+      <div class="dark-bg-bg"></div>
+    </div>
 
 <script type="application/ld+json">
 {
