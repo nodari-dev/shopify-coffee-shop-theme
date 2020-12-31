@@ -158,32 +158,6 @@
     ]
   },
   {
-  "name": "Image with text",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image"
-    },
-    {
-      "type": "select",
-      "id": "layout",
-      "label": "Image alignment",
-      "default": "left",
-      "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
-      ]
-    }
-  ]
-  },
-  {
     "name": "Collection pages",
     "settings": [
       {
@@ -219,7 +193,17 @@
         "id": "show_product_recommendations",
         "label": "Show product recomendations",
         "default": false
-      }
+      },
+      {
+        "type": "range",
+        "id": "img_per_row",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "unit": "el",
+        "label": "Number of images per row",
+        "default": 1
+    }
     ]
   }
 ]

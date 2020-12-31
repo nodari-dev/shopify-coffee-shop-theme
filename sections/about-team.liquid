@@ -1,0 +1,46 @@
+  <div class="container-full padding_bottom_45px white-bg">
+    <div class="container four-per-row">
+        {% for block in section.blocks %}
+            <div class="member padding_1vw grid-el radius-all column">
+                <div class="top center-all">
+                    <div class="member-photo" style="background-image: url('{{ block.settings.member_photo | img_url: '1024x' }}');"></div>
+                </div>
+                <div class="bottom column center-all">
+                    <h3>{{ block.settings.member_name}}</h3>
+                    <h6>{{ block.settings.member_about}}</h6>
+                </div>
+            </div>
+      {% endfor %}
+
+    </div>
+  </div>
+  
+  {% schema %}
+    {
+      "name": "Team",
+      "blocks": [
+            {
+              "type": "image",
+              "name": "About team",
+              "settings": [
+                      {
+                        "type": "image_picker",
+                        "id": "member_photo",
+                        "label": "Member photo"
+                      },
+                      {
+                        "type": "text",
+                        "id": "member_name",
+                        "label": "Member name"
+                      },
+                      {
+                        "type": "textarea",
+                        "id": "member_about",
+                        "label": "About member"
+                      }
+                ]
+            }
+          ]
+    }
+  
+  {% endschema %}

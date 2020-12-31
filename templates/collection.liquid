@@ -1,21 +1,31 @@
 {% paginate collection.products by 11 %}
-<div class="container-full white-bg">
-  <div class="container margin_45 three-per-row">
-    {% if collection.image %}
-      <div class="product-block grid-el collection-info-block radius-all vertical-center" style="background-image: url('{{ collection | img_url: '1024x' }}');">
-    {% else %}
-      <div class="product-block grid-el collection-info-block radius-all vertical-center" style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
-    {% endif %}
-      <h2>{{ collection.title }}</h2>
-    </div>
-    {% for product in collection.products %}
-      {% include 'product-el' %}
-    {% else %}
-      {% include 'no-product' %}
-    {% endfor %}
-  </div>
-  {% if paginate.pages > 1 %}
-    {% include 'pagination' %}
+  {% if collection.products.size != 0 %}
+    <div class="container-full margin_top_100 white-bg">
+  {% else %}
+    <div class="container-full white-bg">
   {% endif %}
-</div>
+    {% if collection.products.size != 0 %}
+      <div class="container margin_top_45 three-per-row">
+        {% if collection.image %}
+          <div class="product-block row center-all grid-el collection-info-block radius-all" style="background-image: url('{{ collection | img_url: '1024x' }}');">
+        {% else %}
+          <div class="product-block row center-all grid-el collection-info-block radius-all " style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
+        {% endif %}
+          <h2>{{ collection.title }}</h2>
+          <div class="dark-image-bg radius-all"></div>
+        </div>
+        {% for product in collection.products %}
+          {% include 'product-el' %}
+        {% endfor %}
+      </div>
+      {% else %}
+        <div class="container margin_top_45 full-height center-all">{% include 'no-product' %}</div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="container margin_bottom_45">
+      {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+      {% endif %}
+    </div>
 {% endpaginate %}

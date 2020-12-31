@@ -2,10 +2,10 @@
   This page represents the /collections and /products pages.
 {% endcomment %}
 
-<section class="collections white-bg">
-  <div class="container-all white-bg">
-    <div class="container four-per-row margin_45 white-bg row start">
-      {% paginate collections by 9 %}
+<section class="collections margin_top_100 white-bg">
+  <div class="container-all margin_45 white-bg">
+    <div class="container four-per-row white-bg row start">
+      {% paginate collections by 12 %}
       {% for collection in collections %}
         {% unless collection.handle == 'frontpage' %}
         <div class="collection-block grid-el radius-all">
@@ -21,9 +21,11 @@
         </div>
         {% endunless %}
       {% endfor %}
-      {% if paginate.pages > 1 %}
-      {% include 'pagination' %}
-    {% endif %}
+      <div class="container padding_none">
+        {% if paginate.pages > 1 %}
+          {% include 'pagination' %}
+        {% endif %}
+      </div>
 
   {% endpaginate %}
     </div>

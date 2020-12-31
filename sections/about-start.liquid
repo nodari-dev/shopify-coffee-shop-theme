@@ -1,0 +1,32 @@
+<div class="container-full full-height margin_top_100 white-bg">
+  {% for block in section.blocks %}
+    <div class="container margin_top_15 w_50">
+      <h2>{{ block.settings.heading_about }}</h2>
+      <p>{{ block.settings.info_about }}</p>
+    </div>
+  {% endfor %}
+</div>
+{% schema %}
+  {
+    "name": "Starter info",
+    "blocks": [
+          {
+            "type": "text",
+            "name": "About text",
+            "settings": [
+                    {
+                      "type": "text",
+                      "id": "heading_about",
+                      "label": "Heading"
+                    },
+                    {
+                      "type": "textarea",
+                      "id": "info_about",
+                      "label": "Text field"
+                    }
+              ]
+          }
+        ]
+  }
+
+{% endschema %}

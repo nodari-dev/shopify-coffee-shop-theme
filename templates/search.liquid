@@ -1,27 +1,46 @@
-<div class="container-full white-bg margin_bottom_30">
+<div class="container-full full-height-nav">
   <div class="container">
-    {% paginate search.results by 4 %}
-    <h1 class="margin_30">
+    {% paginate search.results by 10 %}
+
+      <!-- <h2>
+        {% if search.performed %}
+          <span class="visually-hidden">{{ 'general.search.heading' | t: count: search.results_count }}:</span>
+            {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+        {% else %}
+          {{ 'general.search.title' | t }}
+        {% endif %}
+      </h2> -->
+
+      <form action="/search" class="search row start vertical-center" method="get" role="search">
+
+        <input type="search"
+              class="big"
+              name="q"
+              id="Search"
+              value="{{ search.terms | escape }}"
+              placeholder="Search">
+        <button type="submit" class="big">
+          Go
+        </button>
+      </form>
+    </div>
       {% if search.performed %}
-          {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
-      {% else %}
-        Search
-      {% endif %}
-    </h1>
-  </div>
-  <div class="container row">
-    {% if search.performed %}
-      {% if search.results_count == 0 %}
-        <p>{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
-      {% else %}
-          {% for product in search.results %}
-            {% include 'product-el' %}
-          {% endfor %}
-        {% if paginate.pages > 1 %}
-          {% include 'pagination' %}
+        {% if search.results_count == 0 %}
+        <div class="containe margin_top_45">
+          <h2>Nothing found</h2>
+        </div>
+        {% else %}
+
+          <div class="container three-per-row">
+            {% for product in search.results %}
+              {% include 'product-el' %}
+            {% endfor %}
+          </div>
+          {% if paginate.pages > 1 %}
+            {% include 'pagination' %}
+          {% endif %}
         {% endif %}
       {% endif %}
-    {% endif %}
-  {% endpaginate %}
-  </div>
+
+    {% endpaginate %}
 </div>

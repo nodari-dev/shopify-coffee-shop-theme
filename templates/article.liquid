@@ -32,7 +32,7 @@
   {%- endunless -%}
 {%- endif -%}
 
-<div class="container-full row dark-bg">
+<div class="container-full margin_top_100 row white-bg">
   {% if settings.social_sharing_blog %}
     {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
   {% endif %}
@@ -58,42 +58,42 @@
       {% endif %}
       {% if blog.comments_enabled? %}
         <h3 class="margin_top_30">{{ 'blogs.comments.with_count' | t: count: number_of_comments }}</h3>
-        <div class="post-comments margin_30">
-          {% paginate article.comments by 3 %}
-
-            <div id="comments">
-              {% if number_of_comments > 0 %}
-                <ul>
-                  {% if comment and comment.status != 'published' and comment.id != blank %}
+        {% if number_of_comments > 0 %}
+          <div class="post-comments margin_30">
+            {% paginate article.comments by 3 %}
+              <div id="comments">
+                  <ul>
+                    {% if comment and comment.status != 'published' and comment.id != blank %}
+                      <li id="{{ comment.id }}">
+                        <div class="comment-content">
+                          <h2>{% increment counter | plus: 1 %}</h2>
+                          <h5>{{ comment.author }}</h5>
+                          {{ comment.content }}
+                          <p>{{ comment.created_at | date: "%b %d, %Y" }}</p>
+                          {% capture date %}{{ comment.created_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+                        </div>
+                      </li>
+                    {% endif %}
+                    {% for comment in article.comments %}
                     <li id="{{ comment.id }}">
                       <div class="comment-content">
                         <h2>{% increment counter | plus: 1 %}</h2>
                         <h5>{{ comment.author }}</h5>
                         {{ comment.content }}
-                        <p>{{ comment.created_at | date: "%b %d, %Y" }}</p>
+                        <p class="date margin_top_15 margin_bottom_15">{{ comment.created_at | date: "%b %d, %Y" }}</p>
                         {% capture date %}{{ comment.created_at | time_tag: format: 'month_day_year' }}{% endcapture %}
                       </div>
                     </li>
-                  {% endif %}
-                  {% for comment in article.comments %}
-                  <li id="{{ comment.id }}">
-                    <div class="comment-content">
-                      <h2>{% increment counter | plus: 1 %}</h2>
-                      <h5>{{ comment.author }}</h5>
-                      {{ comment.content }}
-                      <p>{{ comment.created_at | date: "%b %d, %Y" }}</p>
-                      {% capture date %}{{ comment.created_at | time_tag: format: 'month_day_year' }}{% endcapture %}
-                    </div>
-                  </li>
-                  {% endfor %}
-                </ul>
-                {% if paginate.pages > 1 %}
-                  {% include 'pagination' %}
-                {% endif %}
+                    {% endfor %}
+                  </ul>
+              </div>
+              <div class="container margin_top_30 padding_none"></div>
+              {% if paginate.pages > 1 %}
+                {% include 'pagination' %}
               {% endif %}
-            </div>
-          {% endpaginate %}
-        </div>
+            {% endpaginate %}
+          </div>
+        {% endif %}
       </div>
       <div class="comment-container vertical-center white-bg">
         <div class="container">

@@ -1,3 +1,11 @@
+{% assign product_qty = 0 %}
+{% for variant in product.variants %}
+  {% if variant.inventory_quantity > 0 %}
+    {% assign product_qty = product_qty | plus: variant.inventory_quantity %}
+  {% endif %}
+{% endfor %}
+
+
 <div class="product-block radius-all white-bg grid-el">
   <div class="product-block-image radius-all" style="background-image: url('{{ product.featured_image | img_url: '1024x' }}');"> 
     <a href="{{ product.url | within: collection }}"></a>
@@ -6,35 +14,46 @@
     <div class="left column horizontal-center">
       <h5>{{ product.title | strip_html | truncatewords: 4 }}</h5>
       <h5 class="normal">
-        {% if product.compare_at_price > product.price %}
-        {% if product.price_varies %}
-          {%- assign sale_price = product.price | money -%}
+        {% if product_qty == 0 %}
+        Sold out
         {% else %}
-          {{ product.price | money }}
-        {% endif %}
-      {% else %}
-        {% if product.price_varies %}
-          {%- assign price = product.price | money -%}
-        {% else %}
-          {{ product.price | money }}
+          {% if product.compare_at_price > product.price %}
+            {% if product.price_varies %}
+              {%- assign sale_price = product.price | money -%}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+          {% else %}
+            {% if product.price_varies %}
+              {%- assign price = product.price | money -%}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+          {% endif %}
+          {% if product.compare_at_price > product.price %}
+            {{ products.product.regular_price }}
+            <s>{{ product.compare_at_price | money }}</s>
         {% endif %}
       {% endif %}
-      {% if product.compare_at_price > product.price %}
-        {{ products.product.regular_price }}
-        <s>{{ product.compare_at_price | money }}</s>
-      {% endif %}
-      {% unless product.available %}
-        {{ 'products.product.sold_out' | t }}
-      {% endunless %}
-      </h5>
+    </h5>
+    
     </div>
-    <div class="right row vertical-center">
-      <div class="add-wish vertical-center horizontal-right border-all">
-        {% render 'icon-empty-heart' %}
-      </div>
-      <div class="add-cart vertical-center horizontal-right border-all">
-        {% render 'icon-empty-product-cart' %}
-      </div>
+    <div class="right">
+      <form method="post" action="/cart/add" class="row">
+        <div class="add-wish vertical-center horizontal-right border-all">
+          {% render 'icon-empty-heart' %}
+        </div>
+        <div class="add-cart vertical-center horizontal-right border-all">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+          <button type="submit" class="vertical-center horizontal-right" >{% render 'icon-empty-product-cart' %}</button>
+        </div>
+        <!-- 
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+          <button type="submit" class="vertical-center horizontal-right">
+            {% render 'icon-empty-product-cart' %}
+          </button>
+        </div> -->
+        </form>
     </div>
   </div>
   </div>

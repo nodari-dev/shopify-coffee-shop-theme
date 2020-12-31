@@ -11,10 +11,10 @@
   - Show author
   - Show date
 {%- endcomment -%}
-<section class="white-bg full-height center-all column">
+<section class="white-bg full-height auto center-all column">
   {% if section.settings.title != blank %}
   <div class="container-full margin_30">
-    <div class="container">
+    <div class="container row end">
       <h2 class="underline">{{ section.settings.title | escape }}</h2>
     </div>
   </div>
@@ -43,7 +43,7 @@
         <div class="arrow-left center-all">{% render "icon-arrow-left" %}</div>
         <div class="arrow-right center-all">{% render "icon-arrow-right" %}</div>
       </div>
-      <a href="#" class="link-dark">Read our blog</a>
+      <a href="/blogs/news" class="link-dark">Read our blog</a>
     </div>
   </div>
 </section>

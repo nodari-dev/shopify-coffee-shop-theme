@@ -1,13 +1,13 @@
 
-<div class="container-full white-bg blog">
+<div class="container-full margin_top_100 white-bg blog">
   {%- assign blog_title = blog.title -%}
-  <div class="container row start margin_45">
+  <div class="container margin_45 three-per-row">
     {% paginate blog.articles by 12 %}
         {% for article in blog.articles %}
         {% if article.image %}
-          <div class="blog-block row radius-all" style="background-image: url({{ article.image | img_url: 'master' }}">
+          <div class="blog-block grid-el row radius-all" style="background-image: url({{ article.image | img_url: 'master' }}">
         {% else %}
-          <div class="blog-block row radius-all" style="background-image: url({{ 'blog.jpg' | asset_url' }}">
+          <div class="blog-block grid-el row radius-all" style="background-image: url({{ 'blog.jpg' | asset_url' }}">
         {% endif %}
           <div class="description padding_2vw column horizontal-center">
             <h2>{{ article.title | strip_html | truncatewords: 15}}</h2>
@@ -19,16 +19,16 @@
           {% else %}
             <div class="media" style="background-image: url({{ 'blog.jpg' | asset_url }}">
           {% endif %}
-            <div class="dark-image-bg radius-all"></div>
           </div>
           <div class="dark-image-bg radius-all"></div>
           <a class="" href="{{ article.url }}"></a>
       </div>
       {% endfor %}
-      {% if paginate.pages > 1 %}
+      <div class="container padding_none">
+        {% if paginate.pages > 1 %}
         {% include 'pagination' %}
       {% endif %}
-
+      </div>
     {% endpaginate %}
   </div>
 </div>

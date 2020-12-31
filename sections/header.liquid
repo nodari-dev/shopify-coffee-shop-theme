@@ -10,130 +10,72 @@
   Theme Store optional settings
   - Home page only: only shows on the home page
 {%- endcomment -%}
-<div class="container-full white-bg" id="header">
+<div class="container-full white-bg fixed-pos" id="header">
   <div class="container">
-      <header role="banner" class="header">
-          <div class="logo-with-menu row vertical-center">
-            <a href="/" class="logo"><h2>{{shop.name}}</h2></a>
-            <nav role="navigation row" class="navigation">
-              <ul class="menu desktop row">
-                {% for link in linklists[section.settings.menu].links %}
-                  {% if link.links != blank %}
-                    <li>
-                      <a href="{{ link.url }}">
-                        {{ link.title }}
-                      </a>
-                      <ul>
-                        {% for childlink in link.links %}
-                          <li>
-                            <a href="{{ childlink.url }}">
-                              {{ childlink.title }}
-                            </a>
-                          </li>
-                        {% endfor %}
-                      </ul>
-                    </li>
-                  {% else %}
-                    <li>
-                      <a href="{{ link.url }}">
-                        {{ link.title }}
-                      </a>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-            </nav>
-          </div>
-        <div class="header-actions">
-          {% if shop.customer_accounts_enabled %}
-            <ul class="row">
-              {% if customer %}
+    <header role="banner" class="header white-bg vertical-center">
+            <a href="/" class="logo">{{shop.name}}</a>
+            <div class="header-nav row vertical-center">
+              <a href="/cart">Cart {{ cart.item_count }}</a>
+              <div class="open-menu">
+                <span class="radius-all"></span>
+                <span class="radius-all"></span>
+                <span class="radius-all"></span>
+              </div>
+            </div>
+    </header>
+  </div>
+</div>
+<div class="container-full white-bg header-menu hidden fixed-pos row">
+  <div class="container w_50 full-height center-all">
+      <nav role="navigation" class="navigation full-width white-bg row">
+          <ul class="menu column margin_100">
+            {% for link in linklists[section.settings.menu].links %}
+              {% if link.links != blank %}
                 <li>
-                  {% if customer.first_name != blank %}
-                    {% capture first_name %}<a href="/account">{{ customer.first_name }} /</a>{% endcapture %}
-                    {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
-                  {% else %}
-                    <a href="/account">{{ 'layout.customer.account' | t }}</a>
-                  {% endif %}
-                </li>
-                <li>
-                  {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                  <a class="big" href="{{ link.url }}">
+                    {{ link.title }}
+                  </a>
+                  <ul>
+                    {% for childlink in link.links %}
+                      <li>
+                        <a class="big" href="{{ childlink.url }}">
+                          {{ childlink.title }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
                 </li>
               {% else %}
                 <li>
-                  {{ 'layout.customer.log_in' | t | customer_login_link }}
-                </li>
-                <li>
-                  {{ 'layout.customer.create_account' | t | customer_register_link }}
+                  <a class="big" href="{{ link.url }}">
+                    {{ link.title }}
+                  </a>
                 </li>
               {% endif %}
-            </ul>
-          {% endif %}
-          <form action="/search" method="get" role="search" class="header-form">
-            <input class="radius-left dark-style not-active" type="search"
-              name="q"
-              id="Search-{{ section.id }}"
-              value="{{ search.terms | escape }}"
-              placeholder="{{ 'general.search.placeholder' | t }}">
-            <button type="submit" class="radius-none">
-              {% include 'icon-search' %}
-            </button>
-          </form>
-          <a href="/cart" class="cart center-all radius-all">
-            {% render 'icon-cart' %}
-            {% if cart.item_count > 0 %}
-              {% if cart.item_count > 9 %}
-                <span class="center-all">9+</span>
-                {% else %}
-                <span class="center-all">{{ cart.item_count }}</span>
-              {% endif %}
-            {% endif %}
-          </a>
-        </div>
-      </header>
+            {% endfor %}
+            <li class="close-menu"><a class="big">Close</a></li>
+          </ul>
+        </nav>
+  </div>
+  {% if section.settings.navigation_image_select == "uploaded_image" %}
+    <div class="container full-height w_50 vertical-center" style="background-image: url('{{ section.settings.navigation_image | img_url: 'master' }}')"></div>
+  {% else %}
+    <div class="container full-height w_50 vertical-center" style="background-image: url('{{ section.settings.navigation_image_url }}')"></div>
+  {% endif %}
+</div>
+{% if template == 'index' %}
+  <div class="container-full row full-height-nav white-bg">
+    <div class="header-left white-bg vertical-center">
+      <h1 class="big">Humanity <br>runs<br> on<br> coffee</h1>
     </div>
-    {% if template == 'index' %}
-      <div class="container-full row full-height-nav white-bg">
-        <div class="header-left white-bg vertical-center">
-          <h1 class="big">Humanity <br>runs<br> on<br> coffee</h1>
-        </div>
-        <div class="header-right" style="background-image: url({{ section.settings.header_block_bg | img_url: 'master' }}); background-position:{{ section.settings.header_block_bg_pos }};">
-        </div>
-      </div>
-    {% endif %}
+    <div class="header-right" style="background-image: url({{ section.settings.header_block_bg | img_url: 'master' }}); background-position:{{ section.settings.header_block_bg_pos }};">
     </div>
+  </div>
+{% endif %}
     {% schema %}
       {
         "name": "Header",
         "settings": [
-          {
-            "type": "header",
-            "content": "Announcement bar"
-          },
-          {
-            "type": "checkbox",
-            "id": "announcement_bar_enabled",
-            "label": "Show announcement",
-            "default": false
-          },
-          {
-            "type": "checkbox",
-            "id": "announcement_bar_home_page_only",
-            "label": "Show on home page only",
-            "default": true
-          },
-          {
-            "type": "text",
-            "id": "announcement_bar_text",
-            "label": "Announcement text",
-            "default": "Announce something here"
-          },
-          {
-            "type": "url",
-            "id": "announcement_bar_link",
-            "label": "Announcement link",
-            "info": "Optional"
-          },
           {
             "type": "header",
             "content": "Header"
@@ -151,13 +93,34 @@
           },
           {
             "type": "image_picker",
-            "id": "header_message_image",
-            "label": "Image for message"
+            "id": "navigation_image",
+            "label": "Navigation menu image"
+          },
+          {
+            "type": "text",
+            "id": "navigation_image_url",
+            "label": "Navigation menu image url"
+          },
+          {
+            "type": "select",
+            "id": "navigation_image_select",
+            "label": "Choose type of image",
+            "default": "uploaded_image",
+            "options": [
+              {
+                "value": "uploaded_image",
+                "label": "Uploaded image"
+              },
+              {
+                "value": "url_image",
+                "label": "Url image"
+              }
+            ]
           },
           {
             "type": "image_picker",
             "id": "header_block_bg",
-            "label": "Image for bg"
+            "label": "Header image"
           },
           {
             "type": "select",
