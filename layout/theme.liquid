@@ -59,7 +59,7 @@
 </head>
 <body onLoad="window.scroll(0, 0)" id="{{ page_title | handle }}" class="page template-{{ template.name | handle }}">
   
-  {% include 'loader' %}
+  <!-- {% include 'loader' %} -->
   {% include 'popup' %}
   {% section 'header' %}
     <main role="main" id="MainContent">
@@ -72,7 +72,7 @@
 <script src="{{ 'index.js' | asset_url }}"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 
-<script> 
+<!-- <script> 
   document.onreadystatechange = function() { 
       if (document.readyState !== "complete") { 
         $("body").addClass("no-scroll");
@@ -81,7 +81,7 @@
         window.setTimeout(function(){$("body").removeClass("no-scroll");}, 2000);
       } 
   }; 
-</script> 
+</script>  -->
 
 
 <script> 
