@@ -1,4 +1,4 @@
-<div class="container margin_45 vertical-center">
+<div class="container margin-45 vertical-center">
     {% if product.images.size <= 4 %}
         <div class="product-image-photo-wrap one-per-row">
     {% else %}
@@ -15,6 +15,9 @@
 
         {% for image in product.images %}
             <div class="product-image-photo-block grid-el radius-all" style="background-image: url('{{ image.src | product_img_url: '1440x' }}');">
+            </div>
+        {% else %}
+            <div class="product-image-photo-block grid-el radius-all" style="background-image: url('{{ 'product.jpg' | asset_url }}');">
             </div>
         {% endfor %}
         </div>

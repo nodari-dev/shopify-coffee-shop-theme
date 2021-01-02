@@ -7,10 +7,14 @@
 
 
 <div class="product-block radius-all white-bg grid-el">
-  <div class="product-block-image radius-all" style="background-image: url('{{ product.featured_image | img_url: '1024x' }}');"> 
+  {% if product.featured_image %}
+    <div class="product-block-image radius-all" style="background-image: url('{{ product.featured_image | img_url: '1024x' }}');"> 
+  {% else %}
+    <div class="product-block-image radius-all" style="background-image: url('{{ 'product.jpg' | asset_url }}');"> 
+  {% endif %}
     <a href="{{ product.url | within: collection }}"></a>
   </div>
-  <div class="top row radius-bottom padding_1vw">
+  <div class="top row radius-bottom padding-1vw">
     <div class="left column horizontal-center">
       <h5>{{ product.title | strip_html | truncatewords: 4 }}</h5>
       <h5 class="normal">

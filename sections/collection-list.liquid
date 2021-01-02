@@ -6,12 +6,22 @@
   - Heading: title of the collection list section
   - Collection
 {%- endcomment -%}
-  <div class="container full-height auto center-all column margin_45">
-    <h2 class="full-width text-center margin_30">{{ section.settings.title | escape }}</h2>
-    <section class="collection-list row center dark-bg desktop">
-      {% for block in section.blocks limit: 3 %}
+<div class="container-full dark-bg">
+  <h2 class="full-width text-center margin-30">{{ section.settings.title | escape }}</h2>
+  {% if section.blocks.size >= 4 %}
+    <div class="container full-height auto four-per-row-no-margin margin-45">
+  {% elsif section.blocks.size == 3 %}
+    <div class="container full-height auto three-per-row-no-margin margin-45">
+  {% elsif section.blocks.size == 2 %}
+      <div class="container full-height auto two-per-row-no-margin margin-45">
+  {% endif %}
+      {% for block in section.blocks %}
         {%- assign collection = collections[block.settings.collection] -%}
-        <div class="collection-object homepage" style="background-image: url('{{ collection.image.src | collection_img_url: 'original' }}');">
+        {% if collection.image %}
+          <div class="collection-object grid-el homepage" style="background-image: url('{{ collection.image.src | collection_img_url: 'original' }}');">
+        {% else %}
+          <div class="collection-object grid-el homepage" style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
+        {% endif %}
           <a href="{{ collection.url | default: "#" }}" class="collection-list-item" {{ block.shopify_attributes }}>  
             <div class="collection-title">
                 {%- assign default_label = 'homepage.onboarding.collection_title' | t -%}
@@ -21,20 +31,19 @@
             <div class="dark-image-bg"></div>
         </div>
       {% endfor %}
-      <div class="collection-object homepage">
+      <!-- <div class="collection-object grid-el homepage white-bg center-all">
         <a href="/collections" class="collection-list-item" {{ block.shopify_attributes }}></a>
         <h2>See all</h2>
-      </div>
+      </div> -->
       {% if section.blocks.size == 0 %}
         {% include 'no-blocks' %}
       {% endif %}
-    </section>
     </div>
+  </div>
 
 {% schema %}
   {
     "name": "Collection list",
-    "max_blocks": 3,
     "settings": [
       {
         "type": "text",

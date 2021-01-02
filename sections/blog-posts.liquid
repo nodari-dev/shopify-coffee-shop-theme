@@ -13,13 +13,13 @@
 {%- endcomment -%}
 <section class="white-bg full-height auto center-all column">
   {% if section.settings.title != blank %}
-  <div class="container-full margin_30">
+  <div class="container-full margin-30">
     <div class="container row end">
       <h2 class="underline">{{ section.settings.title | escape }}</h2>
     </div>
   </div>
   {% endif %}
-  <div class="container-full margin_45">
+  <div class="container-full margin-45">
     <div class="container colunm">
       <div class="slider blog-slider">
         {%- assign blog = blogs[section.settings.blog] -%}
@@ -38,7 +38,7 @@
         {% endfor %}
       </div>
     </div>
-    <div class="container row between vertical-center margin_top_15">
+    <div class="container row between vertical-center margin-top-15">
       <div class="blog-slider-nav">
         <div class="arrow-left center-all">{% render "icon-arrow-left" %}</div>
         <div class="arrow-right center-all">{% render "icon-arrow-right" %}</div>

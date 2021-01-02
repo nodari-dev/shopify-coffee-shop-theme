@@ -6,9 +6,9 @@
   - Heading: title of the Best selling products section
   - Subheading: description of the Best selling products section
 {%- endcomment -%}
-<section class="best-selling-products full-height auto dark-bg margin_45">
-  <div class="container-full margin_30 dark-bg">
-    <div class="container row end margin_top_30">
+<section class="best-selling-products full-height auto dark-bg margin-45">
+  <div class="container-full margin-30 dark-bg">
+    <div class="container row end margin-top-30">
         <h2 class="underline">Best Selling</h2>
     </div>
   </div>
@@ -17,7 +17,7 @@
         {% for product in collections.best-selling-products.products limit:8 %}
           <div class="product-el grid-el" style="background-image: url('{{ product.featured_image | img_url: '1024x' }}');">
             <a href="{{ product.url }}"></a>
-            <div class="product-el-text padding_1vw">
+            <div class="product-el-text padding-1vw">
               <h2>{{ product.title | strip_html | truncatewords: 15 }}</h2>
             </div>
           </div>

@@ -32,7 +32,7 @@
   {%- endunless -%}
 {%- endif -%}
 
-<div class="container-full margin_top_100 row white-bg">
+<div class="container-full margin-top-100 row white-bg">
   {% if settings.social_sharing_blog %}
     {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
   {% endif %}
@@ -57,9 +57,9 @@
         </ul>
       {% endif %}
       {% if blog.comments_enabled? %}
-        <h3 class="margin_top_30">{{ 'blogs.comments.with_count' | t: count: number_of_comments }}</h3>
+        <h3 class="margin-top-30">{{ 'blogs.comments.with_count' | t: count: number_of_comments }}</h3>
         {% if number_of_comments > 0 %}
-          <div class="post-comments margin_30">
+          <div class="post-comments margin-30">
             {% paginate article.comments by 3 %}
               <div id="comments">
                   <ul>
@@ -80,14 +80,14 @@
                         <h2>{% increment counter | plus: 1 %}</h2>
                         <h5>{{ comment.author }}</h5>
                         {{ comment.content }}
-                        <p class="date margin_top_15 margin_bottom_15">{{ comment.created_at | date: "%b %d, %Y" }}</p>
+                        <p class="date margin-top-15 margin-bottom-15">{{ comment.created_at | date: "%b %d, %Y" }}</p>
                         {% capture date %}{{ comment.created_at | time_tag: format: 'month_day_year' }}{% endcapture %}
                       </div>
                     </li>
                     {% endfor %}
                   </ul>
               </div>
-              <div class="container margin_top_30 padding_none"></div>
+              <div class="container margin-top-30 padding-none"></div>
               {% if paginate.pages > 1 %}
                 {% include 'pagination' %}
               {% endif %}

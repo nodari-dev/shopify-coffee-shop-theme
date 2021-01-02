@@ -25,10 +25,10 @@
     </header>
   </div>
 </div>
-<div class="container-full white-bg header-menu hidden fixed-pos row">
-  <div class="container w_50 full-height center-all">
+<div class="container-full two-per-row-no-margin white-bg header-menu hidden fixed-pos">
+  <div class="container grid-el full-height center-all">
       <nav role="navigation" class="navigation full-width white-bg row">
-          <ul class="menu column margin_100">
+          <ul class="menu column margin-100">
             {% for link in linklists[section.settings.menu].links %}
               {% if link.links != blank %}
                 <li>
@@ -58,17 +58,17 @@
         </nav>
   </div>
   {% if section.settings.navigation_image_select == "uploaded_image" %}
-    <div class="container full-height w_50 vertical-center" style="background-image: url('{{ section.settings.navigation_image | img_url: 'master' }}')"></div>
+    <div class="container grid-el full-height vertical-center" style="background-image: url('{{ section.settings.navigation_image | img_url: 'master' }}')"></div>
   {% else %}
-    <div class="container full-height w_50 vertical-center" style="background-image: url('{{ section.settings.navigation_image_url }}')"></div>
+    <div class="container grid-el full-height vertical-center" style="background-image: url('{{ section.settings.navigation_image_url }}')"></div>
   {% endif %}
 </div>
 {% if template == 'index' %}
-  <div class="container-full row full-height-nav white-bg">
-    <div class="header-left white-bg vertical-center">
+  <div class="container-full two-per-row-no-margin full-height-nav white-bg">
+    <div class="header-left padding-left-6vw grid-el white-bg vertical-center">
       <h1 class="big">Humanity <br>runs<br> on<br> coffee</h1>
     </div>
-    <div class="header-right" style="background-image: url({{ section.settings.header_block_bg | img_url: 'master' }}); background-position:{{ section.settings.header_block_bg_pos }};">
+    <div class="header-right full-height grid-el" style="background-image: url({{ section.settings.header_block_bg | img_url: 'master' }}); background-position:{{ section.settings.header_block_bg_pos }};">
     </div>
   </div>
 {% endif %}

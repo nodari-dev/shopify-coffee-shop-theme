@@ -6,9 +6,9 @@
   - Heading: title of the about us short section
   - Subheading: description of the about us short section
 {%- endcomment -%}
-<section class="about-short white-bg margin_top_45">
-    <div class="container-full white-bg row vertical-center">
-        <div class="about-wrap">
+<section class="about-short white-bg margin-top-45">
+    <div class="container-full white-bg two-per-row-no-margin vertical-center">
+        <div class="about-wrap grid-el">
             <div class="text-inner">
                 <h2>About</h2>
                 <h2>Our</h2>
@@ -18,7 +18,7 @@
                 <a href="/pages/about-us" class="link-dark">Read more about us</a>
             </div>
         </div>
-        <div class="about-wrap" style="background-image: url({{ section.settings.about_short_image | img_url: 'master' }});"></div>
+        <div class="about-wrap grid-el" style="background-image: url({{ section.settings.about_short_image | img_url: 'master' }});"></div>
       </div>
 </section>
 

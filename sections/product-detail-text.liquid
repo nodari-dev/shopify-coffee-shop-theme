@@ -5,23 +5,23 @@
   {% endif %}
 {% endfor %}
 
-<div class="container white-bg margin_top_100 product-description">
+<div class="container white-bg margin-top-100 product-description">
     {% form 'product', product, class: 'product-main-form' %}
     <div class="product-description-wrap">
-        <h1 class="margin_top_30">{{ product.title }}</h1>
-        <h2 class="margin_bottom_30">
+        <h1 class="margin-top-30">{{ product.title }}</h1>
+        <h2 class="margin-bottom-30">
             {% if product.compare_at_price > product.price %} {% if product.price_varies %} {%- assign sale_price = product.price | money -%} {% else %} {{ product.price | money }} {% endif %} {% else %} {% if product.price_varies %} {%- assign price = product.price
             | money -%} {% else %} {{ product.price | money }} {% endif %} {% endif %} {% if product.compare_at_price > product.price %} {{ products.product.regular_price }}
             <s>{{ product.compare_at_price | money }}</s> {% endif %} {% unless product.available %} {{ 'products.product.sold_out' | t }} {% endunless %}
         </h2>
-        <p class="description-text margin_bottom_15">{{ product.description | strip_html | truncatewords: 45 }}</p>
+        <p class="description-text margin-bottom-15">{{ product.description | strip_html | truncatewords: 45 }}</p>
         {% if product.description != blank %}
             <a href="#" class="read-more" id="read-more">Read more</a>
         {% endif %} 
         {% if settings.show_share_buttons %}
         {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
     {% endif %}
-        <div class="product-action vertical-center margin_top_15 row radius-all">
+        <div class="product-action vertical-center margin-top-15 row radius-all">
             
             <select name="id" id="ProductSelect-{{ section.id }}" class="select-product-list radius-top-left">
                 {% for variant in product.variants %}
@@ -46,7 +46,7 @@
                 <!-- <input type="hidden" name="return_to" value="back" /> -->
             </div>
         
-        <h2 class="margin_top_30">Collections:</h2>
+        <h2 class="margin-top-30">Collections:</h2>
         <div class="product-collection-list">
             {% for collection in product.collections %}
             <a class="dark-style product-collection-el radius-all" href="{{ collection.url }}">{{ collection.title }}</a> {% endfor %}
@@ -56,7 +56,7 @@
 </div>
 
 <div class="product-description-block dark-bg">
-    <div class="text-inner padding_20vw">
+    <div class="text-inner padding-20vw">
         <h1>{{ product.title }}</h1>
         {{ product.description }}
         <div class="disable-read-mode">

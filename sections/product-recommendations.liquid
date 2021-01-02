@@ -7,10 +7,10 @@
   - Subheading: description of the Product recomendations section
 {%- endcomment -%}
 <section data-section-id="{{ section.id }}" data-section-type="product-recommendations column">
-  <div class="container margin_30 white-bg">
+  <div class="container margin-30 white-bg">
     <h2>{{ settings.recomend_title }}</h2>
   </div>
-  <div class="container three-per-row margin_bottom_30 white-bg">
+  <div class="container three-per-row margin-bottom-30 white-bg">
       <div class="product-recommendations" data-product-id="{{ product.id }}" data-limit="3">
         {%- if recommendations.products_count > 0 -%}
             {%- for product in recommendations.products -%}

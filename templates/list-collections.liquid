@@ -2,8 +2,8 @@
   This page represents the /collections and /products pages.
 {% endcomment %}
 
-<section class="collections margin_top_100 white-bg">
-  <div class="container-all margin_45 white-bg">
+<section class="collections margin-top-100 white-bg">
+  <div class="container-all margin-45 white-bg">
     <div class="container four-per-row white-bg row start">
       {% paginate collections by 12 %}
       {% for collection in collections %}
@@ -21,7 +21,7 @@
         </div>
         {% endunless %}
       {% endfor %}
-      <div class="container padding_none">
+      <div class="container padding-none">
         {% if paginate.pages > 1 %}
           {% include 'pagination' %}
         {% endif %}

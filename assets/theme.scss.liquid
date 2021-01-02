@@ -748,9 +748,6 @@ a.dark-style:hover h3 {
 .w_60 {
     width: 65%;
 }
-.w_50 {
-    width: 50%;
-}
 .w_40 {
     width: 40%;
 }
@@ -775,10 +772,12 @@ a.dark-style:hover h3 {
     z-index: 10;
 }
 
-.four-per-row,
-.three-per-row,
-.two-per-row,
-.one-per-row {
+/*FUCKING GRID*/
+
+.four-per-row, .four-per-row-no-margin,
+.three-per-row, .three-per-row-no-margin,
+.two-per-row, .two-per-row-no-margin,
+.one-per-row, .one-per-row-no-margin{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -789,7 +788,9 @@ a.dark-style:hover h3 {
     width: 23.5%;
     margin: 1%;
 }
-
+.four-per-row-no-margin .grid-el{
+    width: 25%;
+}
 .four-per-row .grid-el:nth-of-type(4n+1) {
     margin-left: 0;
 }
@@ -802,7 +803,9 @@ a.dark-style:hover h3 {
     width: 32%;
     margin: 1%;
 }
-
+.three-per-row-no-margin .grid-el{
+    width: 33.3%;
+}
 .three-per-row .grid-el:nth-of-type(3n+1) {
     margin-left: 0;
 }
@@ -815,6 +818,9 @@ a.dark-style:hover h3 {
     width: 49%;
     margin: 1%;
 }
+.two-per-row-no-margin .grid-el{
+    width: 50%;
+}
 
 .two-per-row .grid-el:nth-of-type(2n+1) {
     margin-left: 0;
@@ -826,96 +832,101 @@ a.dark-style:hover h3 {
 
 .one-per-row .grid-el {
     width: 100%;
-    margin: 1%;
+    margin:1% 0;
+}
+.one-per-row-no-margin .grid-el{
+    width: 100%;
 }
 
-.one-per-row .grid-el {
-    margin-left: 0;
-    margin-right:0;
-}
+/*FUCKING GRID*/
+
 
 /*===Margins===*/
-.margin_100{
+.margin-100{
     margin: 100px 0;
 }
-.margin_top_100{
+.margin-top-100{
     margin-top: 100px;
 }
-.margin_45 {
+.margin-45 {
     margin: 45px 0;
 }
 
-.margin_top_45 {
+.margin-top-45 {
     margin-top: 45px;
 }
 
-.margin_bottom_45 {
+.margin-bottom-45 {
     margin-bottom: 45px;
 }
 
-.margin_30 {
+.margin-30 {
     margin: 30px 0;
 }
 
-.margin_top_30 {
+.margin-top-30 {
     margin-top: 30px;
 }
 
-.margin_bottom_30 {
+.margin-bottom-30 {
     margin-bottom: 30px;
 }
 
-.margin_15 {
+.margin-15 {
     margin: 15px;
 }
 
-.margin_top_15 {
+.margin-top-15 {
     margin-top: 15px;
 }
 
-.margin_bottom_15 {
+.margin-bottom-15 {
     margin-bottom: 15px;
 }
 
-.margin_right_15 {
+.margin-right-15 {
     margin-right: 15px;
 }
-.margin_left_10{
+.margin-left-10{
     margin-left: 10px;
 }
 
 /*===Margins===*/
 
-.padding_45px {
+.padding-45px {
     padding: 45px 0;
 }
-.padding_vertical_15px {
+.padding-vertical_15px {
     padding: 15px 0; 
 }
-.padding_bottom_45px {
+.padding-bottom-45px {
     padding-bottom: 45px;
 }
 
-.padding_20vw {
+.padding-20vw {
     padding: 20vw !important;
 }
 
-.padding_12vw {
+.padding-12vw {
     padding: 12vw !important;
 }
 
-.padding_6vw {
+.padding-6vw {
     padding: 6vw;
 }
 
-.padding_2vw {
+.padding-left-6vw {
+    padding-left: 6vw;
+}
+
+.padding-2vw {
     padding: 2vw;
 }
 
-.padding_1vw {
+.padding-1vw {
     padding: 1vw;
 }
-.padding_none {
+.padding-none {
     padding: 0;
 }
 
@@ -1148,23 +1159,11 @@ ul.tag-list li:first-child {
 .disable-menu {
     display: none !important;
 }
-
 .header-left,
 .header-right {
-    width: 50%;
     background-position: center center;
     background-size: cover;
     box-sizing: border-box;
-}
-.header-right{
-    min-height: calc(100vh - 100px);
-}
-.header-left {
-    padding-left: 6vw;
-}
-
-.header-right {
-    padding-right: 6vw;
 }
 
 
@@ -1178,9 +1177,7 @@ section.collection-list.desktop {
 }
 
 .collection-object {
-    width: 320px;
     height: 320px;
-    margin-top: 20px;
     position: relative;
     background-size: cover;
     background-position: center center;
@@ -1188,7 +1185,6 @@ section.collection-list.desktop {
 }
 
 .collection-object.homepage {
-    width: 28.3%;
     height: 80vh;
     box-sizing: border-box;
     min-height: 500px;
@@ -1204,36 +1200,26 @@ section.collection-list.desktop {
     border-bottom-right-radius: 10px;
 }
 
-.collection-object.homepage:nth-child(4) {
-    width: 15%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    box-sizing: border-box;
-    transition: .2 all linear;
-}
+// .collection-object.homepage:last-child h2 {
+//     writing-mode: vertical-lr;
+//     text-orientation: mixed;
+//     color: #191919;
+//     opacity: .7;
+//     transition: .2s all linear !important;
+// }
 
-.collection-object.homepage:nth-child(4) h2 {
-    writing-mode: vertical-lr;
-    text-orientation: mixed;
-    color: #191919;
-    opacity: .7;
-    transition: .2 all linear !important;
-}
+// .collection-object.homepage:last-child a {
+//     width: 100%;
+//     height: 100%;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     z-index: 10;
+// }
 
-.collection-object.homepage:nth-child(4) a {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-}
-
-.collection-object.homepage:nth-child(4):hover h2 {
-    opacity: 1;
-}
+// .collection-object.homepage:last-child:hover h2 {
+//     opacity: 1;
+// }
 
 .collection-title {
     width: 100%;
@@ -1729,13 +1715,11 @@ form.contact-form input[type=submit] {
 /*===ABOUT US SECTION/PAGE===*/
 
 .about-wrap {
-    width: 50%;
     height: 100vh;
     min-height: 600px;
 }
 
 .about-wrap:nth-child(2) {
-    width: 50%;
     height: 120vh;
     padding: 0;
     background-size: cover;

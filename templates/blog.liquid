@@ -1,7 +1,7 @@
 
-<div class="container-full margin_top_100 white-bg blog">
+<div class="container-full margin-top-100 white-bg blog">
   {%- assign blog_title = blog.title -%}
-  <div class="container margin_45 three-per-row">
+  <div class="container margin-45 three-per-row">
     {% paginate blog.articles by 12 %}
         {% for article in blog.articles %}
         {% if article.image %}
@@ -9,7 +9,7 @@
         {% else %}
           <div class="blog-block grid-el row radius-all" style="background-image: url({{ 'blog.jpg' | asset_url' }}">
         {% endif %}
-          <div class="description padding_2vw column horizontal-center">
+          <div class="description padding-2vw column horizontal-center">
             <h2>{{ article.title | strip_html | truncatewords: 15}}</h2>
             <p>{{ article.content | strip_html | truncatewords: 30 }}</p>
             <a href="{{ article.url }}" class="link-dark">Read more</a>
@@ -24,7 +24,7 @@
           <a class="" href="{{ article.url }}"></a>
       </div>
       {% endfor %}
-      <div class="container padding_none">
+      <div class="container padding-none">
         {% if paginate.pages > 1 %}
         {% include 'pagination' %}
       {% endif %}
