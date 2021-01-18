@@ -11,6 +11,7 @@
   {% include 'style-tags', layout: 'theme' %}
   {% include 'css-variables' %}
   <link rel="stylesheet" href="{{ 'theme.scss.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'grid.scss.css' | asset_url }}">
 
   {%- if settings.favicon != blank -%}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
@@ -34,7 +35,8 @@
   {%- if page_description -%}
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif -%}
-
+  {% include 'cart-count' %}
+  
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>  	 
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
@@ -59,20 +61,25 @@
 </head>
 <body onLoad="window.scroll(0, 0)" id="{{ page_title | handle }}" class="page template-{{ template.name | handle }}">
   
-  <!-- {% include 'loader' %} -->
+  {% include 'loader' %}
   {% include 'popup' %}
   {% section 'header' %}
+  {% if template == 'index' %}
+    {% section 'header-main'%}
+    {% section 'partners-list'%}
+  {% endif %}
     <main role="main" id="MainContent">
       {{ content_for_layout }}
     </main>
     {% if template.name != "cart" %}
       {% section 'footer' %}
     {% endif %}
+    
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="{{ 'index.js' | asset_url }}"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 
-<!-- <script> 
+<script> 
   document.onreadystatechange = function() { 
       if (document.readyState !== "complete") { 
         $("body").addClass("no-scroll");
@@ -81,9 +88,13 @@
         window.setTimeout(function(){$("body").removeClass("no-scroll");}, 2000);
       } 
   }; 
-</script>  -->
+</script> 
 
-
+{% if template.name == "index" %}
+    <script>
+      alert("Welcome to beta version of BearCoffee, shop buided on shopify platform. You are beta tester. You need to test website. And if you will find bugs, please send me to my telegram or other social networks.");
+    </script>
+{% endif %}
 <script> 
   $(document).ready(function() { 
       $('#comment_form').ajaxForm(function() { 
@@ -100,31 +111,99 @@
 </script>
 
 <script>
-  $('.product-slider').slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    fade: true,
-    draggable:false,
-    asNavFor: '.mini-product-slider'
-  });
-  $('.mini-product-slider').slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    asNavFor: '.product-slider',
-    dots: false,
-    centerMode: false,
-    draggable:false,
-    focusOnSelect: true
-  });
+  $('.partner-slider').slick({
+      infinite: true,
+      autoplay: true,
+      autoplaySpeed: 0,
+      cssEase: 'linear',
+      speed: 4000,
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      arrows: false,
+      dragble: false,
+      responsive: [
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 1
+            }
+          }
 
+        ]
+  }); 
   $('.blog-slider').slick({
       infinite: true,
       slidesToShow: 3,
-      slidesToScroll: 2,
+      slidesToScroll: 1,
+      speed: 1500,
       prevArrow: document.querySelector('.arrow-left'),
       nextArrow: document.querySelector('.arrow-right'),
+      responsive: [
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1
+            }
+          }
+
+        ]
+  });
+  $('.photo-slider').slick({
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      prevArrow: document.querySelector('.arrow-left'),
+      nextArrow: document.querySelector('.arrow-right'),
+      responsive: [
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1
+            }
+          }
+
+        ]
   });
 </script>
+{% render 'cart-add-on' %}
+
 </body>
 </html>

@@ -1,16 +1,24 @@
     {% if cart.item_count > 0 %}
     <div class="container-full row start margin-top-100">
-      <div class="container w_70 margin-top-45 row between">
+      <div class="container w_70 margin-top-45 row between vertical-center">
         <h2>{{ 'cart.general.title' | t }}</h2>
         <h5>{{ cart.item_count }} items</h5>
       </div>
       <form action="/cart" method="post" novalidate>
         <div class="container column full-height margin-45 w_70 cart">
           {% for item in cart.items %}
-            <div class="cart-block padding-vertical_15px white-bg row margin-top-45 vertical-center">
-              <div class="product-image radius-all" style="background-image: url('{{ item | img_url: '1024x' }}');">
-                <a href="{{ item.url }}"></a>
-              </div>
+            <div class="cart-block white-bg row margin-top-45 vertical-center">
+              {% if item.image %}
+                <div class="product-image radius-all">
+                  <img src="{{ item | img_url: '1024x' }}" alt="" class="radius-all">
+                  <a href="{{ item.url }}"></a>
+                </div>
+              {% else %}
+                <div class="product-image radius-all">
+                  <img src="{{ 'product.jpg' | asset_url }}" alt="" class="radius-all">
+                  <a href="{{ item.url }}"></a>
+                </div>
+              {% endif %}
                 <div class="product-info padding-1vw row vertical-center">
                   <div class="product-main column horizontal-center">
                     <a href="{{ item.url }}"><h4>{{ item.product.title }}</h4></a>
@@ -25,26 +33,24 @@
                   </div>
 
 
-                  <div class="product-count center-all column">
-                    <input type="number"
+                  <div class="product-count center-all one-per-row">
+                    <input 
+                      class="grid-el"
+                      type="number"
                       name="updates[]"
                       id="updates_{{ item.key }}"
                       value="{{ item.quantity }}"
                       min="0"
                       aria-label="{{ 'cart.general.item_quantity' | t }}">
-                    <input type="submit" class="margin-top-15 margin-bottom-15 button-dark-style" name="update" value="{{ 'cart.general.update' | t }}">
-
-                  </div>
-
-                  <div class="product-action center-all white-bg">
-                    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">Remove</a>
+                    <input type="submit" class="grid-el button-dark-style" name="update" value="{{ 'cart.general.update' | t }}">
+                    <a class="grid-el link-dark" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">Remove</a>
                   </div>
                 </div>
             </div>
           {% endfor %}
           </div>
-          <div class="container dark-bg radius-bottom-left w_30 fixed-pos-right column cart checkout">
-            <div class="cart-result  dark-bg margin-top-100 column">
+          <div class="container cart-result-wrap dark-bg radius-bottom-left w_30 fixed-pos-right column cart checkout">
+            <div class="cart-result dark-bg margin-top-100 column">
               <div class="top">
                 <h2 class="margin-top-45">Summary</h2>
                 {% if cart.total_discounts > 0 %}
@@ -75,3 +81,4 @@
       </div>
     </div>
     {% endif %}
+    {% include 'cart-add-on' %}

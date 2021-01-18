@@ -1,9 +1,11 @@
-  <div class="container-full padding-bottom-45px white-bg">
+  <div class="container-full white-bg">
     <div class="container four-per-row">
         {% for block in section.blocks %}
             <div class="member padding-1vw grid-el radius-all column">
                 <div class="top center-all">
-                    <div class="member-photo" style="background-image: url('{{ block.settings.member_photo | img_url: '1024x' }}');"></div>
+                    <div class="member-photo">
+                      <img src="{{ block.settings.member_photo | img_url: '1024x' }}" alt="{{ block.settings.member_name}}">
+                    </div>
                 </div>
                 <div class="bottom column center-all">
                     <h3>{{ block.settings.member_name}}</h3>
@@ -14,7 +16,6 @@
 
     </div>
   </div>
-  
   {% schema %}
     {
       "name": "Team",

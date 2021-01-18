@@ -205,5 +205,16 @@
         "default": 1
     }
     ]
+  },
+  {
+    "name": "Partners",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "partners_enable",
+        "label": "Enable partners list",
+        "default": true
+      }
+    ]
   }
 ]

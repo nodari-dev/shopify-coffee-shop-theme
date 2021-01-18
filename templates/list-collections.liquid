@@ -2,32 +2,33 @@
   This page represents the /collections and /products pages.
 {% endcomment %}
 
-<section class="collections margin-top-100 white-bg">
-  <div class="container-all margin-45 white-bg">
-    <div class="container four-per-row white-bg row start">
-      {% paginate collections by 12 %}
-      {% for collection in collections %}
-        {% unless collection.handle == 'frontpage' %}
-        <div class="collection-block grid-el radius-all">
+<div class="container-all white-bg margin-top-100 one-per-row-no-margin one-per-row-no-margin-mobile">
+  <div class="container two-per-row white-bg grid-el margin-45">
+    {% paginate collections by 12 %}
+    {% for collection in collections %}
+      {% unless collection.handle == 'frontpage' %}
+      <div class="collection-block grid-el radius-all">
+        <div class="left center-all radius-all">
           {% if collection.image %}
-            <div class="left center-all radius-all"" style="background-image: url('{{ collection.image.src | collection_img_url: '1024x' }}');">
+            <img src="{{ collection.image.src | collection_img_url: '1024x' }}" alt="{{ collection.title }}">
           {% else %}
-            <div class="left center-all radius-all"" style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
+            <img src="{{ 'collection.jpg' | asset_url }}" alt="{{ collection.title }}">
           {% endif %}
-            <h2>{{ collection.title }}</h2>
-            <div class="dark-image-bg radius-all""></div>
-          </div>
-          <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: title }}"></a>
+          <h2>{{ collection.title }}</h2>
+          <div class="dark-image-bg radius-all"></div>
         </div>
-        {% endunless %}
-      {% endfor %}
-      <div class="container padding-none">
-        {% if paginate.pages > 1 %}
-          {% include 'pagination' %}
-        {% endif %}
+        <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: title }}"></a>
       </div>
+      {% endunless %}
+      {% else %}
+      <div class="container margin-top-45 full-height center-all grid-el">{% include 'no-product' %}</div>
+    {% endfor %}
+    {% if paginate.pages > 1 %}
+      <div class="container margin-top-10">
+          {% include 'pagination' %}
+      </div>
+    {% endif %}
 
-  {% endpaginate %}
-    </div>
+{% endpaginate %}
   </div>
-</section>
+</div>

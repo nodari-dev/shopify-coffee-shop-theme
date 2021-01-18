@@ -1,21 +1,7 @@
-<!-- <div class="container-full dark-bg">
-      <div class="container margin-30">
-          {% render 'breadcrumbs' %}
-      </div>    
-  </div> -->
-  <div class="container-full row margin-top-100" style="align-items: flex-start;">
-    {% section 'product-detail-photo' %}
-    {% section 'product-detail-text' %}
-  </div>
-  <div class="container w_65 white-bg">
-    <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
-    </div>
+{% section 'product' %}
     {% if settings.show_product_recommendations %}
-        <div class="container-full">
-            {% section 'product-recommendations' %}
-        </div>
+        {% section 'product-recommendations' %}
     {% endif %}
-
 <script type="application/ld+json">
     {
         "@context": "http://schema.org/",

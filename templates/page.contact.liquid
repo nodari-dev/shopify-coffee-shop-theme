@@ -1,26 +1,20 @@
-<div class="container-full full-height padding-45px white-bg">
-  <div class="container">
-    <h1>{{ page.title }}</h1>
-    <div class="rte">
-      {{ page.content }}
-    </div>
-
-    {% form 'contact' , class: 'contact-page' %}
-
+<div class="container-full two-per-row-no-margin one-per-row-mobile auto margin-top-100 vertical-center">
+  <div class="container grid-el margin-top-45">
+    {% form 'contact' , class: 'contact-page one-per-row' %}
       {% if form.posted_successfully? %}
-        <p class="form-success margin-45 radius-all">
+        <h4 class="form-success margin-45">
           {{ 'contact.form.post_success' | t }}
-        </p>
+        </h4>
       {% endif %}
-
       {{ form.errors | default_errors }}
-      <div class="top-form">
         <input type="text"
+          class="grid-el"
           name="contact[name]"
           id="ContactFormName"
           placeholder="{{ 'contact.form.name' | t }}"
           value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
         <input type="email"
+          class="grid-el"
           name="contact[email]"
           id="ContactFormEmail"
           placeholder="{{ 'contact.form.email' | t }}"
@@ -29,14 +23,14 @@
           autocomplete="off"
           autocapitalize="off">
         <input type="tel"
+          class="grid-el"
           name="contact[phone]"
           id="ContactFormPhone"
           placeholder="{{ 'contact.form.phone' | t }}"
           value="{% if form[phone] %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
           pattern="[0-9\-]*">
-      </div>
-      <div class="bottom-form">
         <textarea rows="10"
+        class="grid-el"
         name="contact[body]"
         id="ContactFormMessage"
         placeholder="{{ 'contact.form.message' | t }}">
@@ -44,10 +38,20 @@
           {{- form.body -}}
         {%- endif -%}
       </textarea>
-      </div>
 
-      <button type="submit" class="light-style radius-all">{{ 'contact.form.send' | t }}</button>
+      <button type="submit" class="dark-style radius-all">{{ 'contact.form.send' | t }}</button>
 
     {% endform %}
   </div>
+  <div class="container grid-el">
+    <h1 class="margin-top-30">{{ page.title }}</h1>
+    {{ page.content }}
+    <a href="/collections/all" class="link-dark">Keep shopping</a>
+  </div>
 </div>
+<div class="container-full">
+  <div class="container margin-top-45">
+    <iframe class="map radius-all" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1223233821897!2d-122.41288468425319!3d37.78717297975732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808e4c2e1e5d%3A0x20cd7876b1d66114!2sStarbucks!5e0!3m2!1suk!2sua!4v1610837224861!5m2!1suk!2sua" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+  </div>
+</div>
+

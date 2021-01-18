@@ -1,34 +1,29 @@
 
-<div class="container-full margin-top-100 white-bg blog">
+<div class="container-full margin-top-100 white-bg one-per-row-no-margin one-per-row-no-margin-mobile">
   {%- assign blog_title = blog.title -%}
-  <div class="container margin-45 three-per-row">
+  <div class="container grid-el margin-45 three-per-row one-per-row-mobile">
     {% paginate blog.articles by 12 %}
         {% for article in blog.articles %}
-        {% if article.image %}
-          <div class="blog-block grid-el row radius-all" style="background-image: url({{ article.image | img_url: 'master' }}">
+        <div class="blog-block grid-el row radius-all">
+          {% if article.image %}
+            <img src="{{ article.image | img_url: 'master' }}" alt="{{ article.title }}">
         {% else %}
-          <div class="blog-block grid-el row radius-all" style="background-image: url({{ 'blog.jpg' | asset_url' }}">
+          <img src="{{ 'blog.jpg' | 'asset_url' }}" alt="{{ article.title }}">
         {% endif %}
           <div class="description padding-2vw column horizontal-center">
             <h2>{{ article.title | strip_html | truncatewords: 15}}</h2>
             <p>{{ article.content | strip_html | truncatewords: 30 }}</p>
             <a href="{{ article.url }}" class="link-dark">Read more</a>
           </div>
-          {% if article.image %}
-            <div class="media" style="background-image: url({{ article.image | img_url: 'master' }}">
-          {% else %}
-            <div class="media" style="background-image: url({{ 'blog.jpg' | asset_url }}">
-          {% endif %}
-          </div>
           <div class="dark-image-bg radius-all"></div>
           <a class="" href="{{ article.url }}"></a>
       </div>
       {% endfor %}
-      <div class="container padding-none">
-        {% if paginate.pages > 1 %}
-        {% include 'pagination' %}
-      {% endif %}
-      </div>
-    {% endpaginate %}
   </div>
+  <div class="container grid-el margin-top-10">
+    {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+  {% endif %}
+  </div>
+{% endpaginate %}
 </div>

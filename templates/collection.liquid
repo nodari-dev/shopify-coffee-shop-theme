@@ -1,31 +1,37 @@
 {% paginate collection.products by 11 %}
-  {% if collection.products.size != 0 %}
-    <div class="container-full margin-top-100 white-bg">
-  {% else %}
-    <div class="container-full white-bg">
-  {% endif %}
     {% if collection.products.size != 0 %}
-      <div class="container margin-top-45 three-per-row">
-        {% if collection.image %}
-          <div class="product-block row center-all grid-el collection-info-block radius-all" style="background-image: url('{{ collection | img_url: '1024x' }}');">
+        <div class="container-full margin-top-100 white-bg one-per-row-no-margin one-per-row-no-margin-mobile">
         {% else %}
-          <div class="product-block row center-all grid-el collection-info-block radius-all" style="background-image: url('{{ 'collection.jpg' | asset_url }}');">
-        {% endif %}
-          <h2>{{ collection.title }}</h2>
-          <div class="dark-image-bg radius-all"></div>
-        </div>
-        {% for product in collection.products %}
-          {% include 'product-el' %}
-        {% endfor %}
-      </div>
-      {% else %}
-        <div class="container margin-top-45 full-height center-all">{% include 'no-product' %}</div>
-      </div>
-    </div>
-    {% endif %}
-    <div class="container">
-      {% if paginate.pages > 1 %}
-        {% include 'pagination' %}
-      {% endif %}
-    </div>
+            <div class="container-full white-bg one-per-row-no-margin one-per-row-no-margin-mobile">
+            {% endif %}
+            {% if collection.products.size != 0 %}
+                <div class="container grid-el margin-45 three-per-row one-per-row-mobile">
+                    <div class="product-block row center-all grid-el collection-info-block radius-all">
+                        <div class="collection-info-text padding-1vw">
+                            <h2>{{ collection.title }}</h2>
+                            {% if collection.description %}
+                                <p>{{ collection.description }}</p>
+                            {% endif %}
+                        </div>
+                        {% if collection.image %}
+                            <img src="{{ collection.image | img_url: '1024x' }}" alt="{{ collection.title }}">
+                            {% else %}
+                                <img src="{{ 'collection.jpg' | asset_url }}" alt="{{ collection.title }}">
+                                {% endif %}
+                                <div class="dark-image-bg radius-all"></div>
+                            </div>
+                            {% for product in collection.products %}
+                                {% include 'product-el' %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="container margin-top-45 full-height center-all grid-el">{% include 'no-product' %}</div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if paginate.pages > 1 %}
+                <div class="container grid-el margin-top-10">
+                    {% include 'pagination' %}
+                </div>
+            {% endif %}
 {% endpaginate %}

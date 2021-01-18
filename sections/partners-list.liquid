@@ -1,0 +1,36 @@
+<div class="container-full partners-wrapper white-bg margin-top-45">
+    <ul class="partner-slider slick">
+        {% for block in section.blocks %}
+        <li class="padding-1vw center-all">
+          <img class="partner" src="{{ block.settings.partner_logo | img_url: 'master' }}" alt="{{ block.settings.partner_name }}">
+        </li>
+        {% endfor %}
+      </ul>
+</div>
+{% schema %}
+    {
+    "name": "Partners list",
+    "presets": [{
+        "name": "Partners list",
+        "category": "Company"
+    }],
+    "blocks": [
+    {
+        "type": "image_picker",
+        "name": "Company logo",
+        "settings": [
+        {
+            "label": "Image",
+            "id": "partner_logo",
+            "type": "image_picker"
+        },
+        {
+            "label": "Partner name",
+            "id": "partner_name",
+            "type": "text"
+        }
+        ]
+    }
+    ]
+    }
+{% endschema %}

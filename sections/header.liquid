@@ -15,7 +15,7 @@
     <header role="banner" class="header white-bg vertical-center">
             <a href="/" class="logo">{{shop.name}}</a>
             <div class="header-nav row vertical-center">
-              <a href="/cart">Cart {{ cart.item_count }}</a>
+              <a href="/cart" id="cart-number">Cart {{ cart.item_count }}</a>
               <div class="open-menu">
                 <span class="radius-all"></span>
                 <span class="radius-all"></span>
@@ -25,9 +25,10 @@
     </header>
   </div>
 </div>
-<div class="container-full two-per-row-no-margin white-bg header-menu hidden fixed-pos">
-  <div class="container grid-el full-height center-all">
-      <nav role="navigation" class="navigation full-width white-bg row">
+
+<div class="container-full grid-container white-bg header-menu hidden fixed-pos">
+  <div class="container full-width full-height center-all">
+      <nav role="navigation" class="navigation full-width row">
           <ul class="menu column margin-100">
             {% for link in linklists[section.settings.menu].links %}
               {% if link.links != blank %}
@@ -56,22 +57,14 @@
             <li class="close-menu"><a class="big">Close</a></li>
           </ul>
         </nav>
+        <div class="dark-image-bg"></div>
   </div>
   {% if section.settings.navigation_image_select == "uploaded_image" %}
-    <div class="container grid-el full-height vertical-center" style="background-image: url('{{ section.settings.navigation_image | img_url: 'master' }}')"></div>
+    <div class="container full-width full-height vertical-center nav-right" style="background-image: url('{{ section.settings.navigation_image | img_url: 'master' }}')"></div>
   {% else %}
-    <div class="container grid-el full-height vertical-center" style="background-image: url('{{ section.settings.navigation_image_url }}')"></div>
+    <div class="container full-width full-height vertical-center nav-right" style="background-image: url('{{ section.settings.navigation_image_url }}')"></div>
   {% endif %}
 </div>
-{% if template == 'index' %}
-  <div class="container-full two-per-row-no-margin full-height-nav white-bg">
-    <div class="header-left padding-left-6vw grid-el white-bg vertical-center">
-      <h1 class="big">Humanity <br>runs<br> on<br> coffee</h1>
-    </div>
-    <div class="header-right full-height grid-el" style="background-image: url({{ section.settings.header_block_bg | img_url: 'master' }}); background-position:{{ section.settings.header_block_bg_pos }};">
-    </div>
-  </div>
-{% endif %}
     {% schema %}
       {
         "name": "Header",

@@ -6,25 +6,34 @@
   - Heading: title of the Best selling products section
   - Subheading: description of the Best selling products section
 {%- endcomment -%}
-<section class="best-selling-products full-height auto dark-bg margin-45">
-  <div class="container-full margin-30 dark-bg">
-    <div class="container row end margin-top-30">
-        <h2 class="underline">Best Selling</h2>
-    </div>
-  </div>
-    <div class="container-full dark-bg">
-      <div class="container four-per-row">
-        {% for product in collections.best-selling-products.products limit:8 %}
-          <div class="product-el grid-el" style="background-image: url('{{ product.featured_image | img_url: '1024x' }}');">
-            <a href="{{ product.url }}"></a>
-            <div class="product-el-text padding-1vw">
-              <h2>{{ product.title | strip_html | truncatewords: 15 }}</h2>
-            </div>
-          </div>
-      {% endfor %}
+<div class="container-full white-bg full-height vertical-center">
+  <h2 class="underline margin-45">Best Selling</h2>
+  <div class="container four-per-row grid-container">
+    {% for product in collections.best-selling-products.products limit:8 %}
+      <div class="product-el center-all grid-el">
+        {% if product.featured_image %}
+        <img src="{{ product.featured_image | img_url: '1024x' }}" alt="{{ product.title }}">
+
+        <!-- <figure>
+          <span>
+          </span>
+        </figure> -->
+        {% else %}
+          <!-- <figure>
+            <span>
+            </span>
+          </figure> -->
+          <img src="{{ 'product.jpg' | asset_url }}" alt="{{ product.title }}">
+
+        {% endif %}
+        <a href="{{ product.url }}"></a>
+        <div class="product-el-text padding-1vw">
+          <h2>{{ product.title | strip_html | truncatewords: 15 }}</h2>
+        </div>
       </div>
-    </div>
-</section>
+  {% endfor %}
+  </div>
+</div>
 
 {% schema %}
   {

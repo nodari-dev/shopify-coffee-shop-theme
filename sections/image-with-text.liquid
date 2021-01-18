@@ -1,108 +1,85 @@
 {%- comment -%}
   This is a required section for the Shopify Theme Store.
-  It is available when you add the "Image with text" section in the theme editor.
 
   Theme Store required settings
-  - Image
-  - Heading: title of the block
-  - Text: description of the block
-
-  Theme Store optional settings
-  - Button label: label associated with the button
-  - Button link: link of the button
+  - Heading: title of the about us short section
+  - Subheading: description of the about us short section
 {%- endcomment -%}
-
-<section class="image-with-text">
-  {% capture image_layout %}
-    <div class="image-with-text__image">
-      {% if section.settings.image != blank %}
-        {% include 'responsive-image' with
-          image: section.settings.image,
-          max_width: 545,
-          max_height: 545
-        %}
-      {% else %}
-        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-      {% endif %}
-    </div>
-  {% endcapture %}
-
-  {% if section.settings.layout == 'left' %}
-    {{ image_layout }}
-  {% endif %}
-
-  <div class="image-with-text__text">
-    {% if section.settings.title != blank %}
-      <h2>{{ section.settings.title | escape }}</h2>
+  <div class="container-full margin-top-45 white-bg two-per-row end vertical-center">
+    {% if section.settings.reverse  %}
+      <div class="image-with-text-wrap grid-el">
+        <div class="text-inner">
+            <h2>{{ section.settings.heading }}</h2>
+            <p>{{ section.settings.text }}</p>
+            {% if section.settings.link_text and section.settings.url %}
+              <a href="{{ section.settings.url }}" class="link-dark">{{ section.settings.link_text }}</a>
+            {% endif %}
+        </div>
+      </div>
+      <div class="image-with-text-wrap full-height grid-el">
+        <img src="{{ section.settings.image_text | img_url: 'master' }}" alt="{{ section.settings.image_alt }}">
+      </div>
+    {% else %}
+      <div class="image-with-text-wrap reverse full-height grid-el">
+        <img src="{{ section.settings.image_text | img_url: 'master' }}" alt="{{ section.settings.image_alt }}">
+      </div>
+      <div class="image-with-text-wrap reverse grid-el">
+        <div class="text-inner">
+            <h2>{{ section.settings.heading }}</h2>
+            <p>{{ section.settings.text }}</p>
+            {% if section.settings.link_text and section.settings.url %}
+              <a href="{{ section.settings.url }}" class="link-dark">{{ section.settings.link_text }}</a>
+            {% endif %}
+        </div>
+      </div>
     {% endif %}
-    {% if section.settings.text != blank %}
-      <div>{{ section.settings.text }}</div>
-    {% endif %}
-    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}">
-        {{ section.settings.button_label | escape }}
-      </a>
-    {% endif %}
+
   </div>
-
-  {% if section.settings.layout == 'right' %}
-    {{ image_layout }}
-  {% endif %}
-</section>
 
 {% schema %}
   {
     "name": "Image with text",
+    "presets": [{
+      "name": "Image with tex",
+      "category": "Company"
+    }],
     "settings": [
-      {
-        "type": "image_picker",
-        "id": "image",
-        "label": "Image"
-      },
-      {
-        "type": "select",
-        "id": "layout",
-        "label": "Image alignment",
-        "default": "left",
-        "options": [
-          {
-            "value": "left",
-            "label": "Left"
-          },
-          {
-            "value": "right",
-            "label": "Right"
-          }
-        ]
-      },
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Heading",
-        "default": "Image with text"
-      },
-      {
-        "type": "richtext",
-        "id": "text",
-        "label": "Text",
-        "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
-      },
-      {
-        "type": "text",
-        "id": "button_label",
-        "label": "Button label"
-      },
-      {
-        "type": "url",
-        "id": "button_link",
-        "label": "Button link"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Image with text",
-        "category": "Image"
-      }
+    {
+      "type": "checkbox",
+      "id": "reverse",
+      "default": false,
+      "label": "Reverse image and text"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text"
+    },
+    {
+      "type": "text",
+      "id": "link",
+      "label": "Url"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_text",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt"
+    }
     ]
   }
 {% endschema %}

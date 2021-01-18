@@ -1,23 +1,15 @@
 <ul class="pagination-custom row start">
   {% if paginate.previous %}
-    <li><a href="{{ paginate.previous.url }}" title="{{ paginate.previous.title }}">{% include "icon-arrow-left" %}</p></a></li>
-  {% endif %}
-
-  {% for part in paginate.parts %}
-    {% if part.is_link %}
-      <li class="">
-        <a href="{{ part.url }}" title="">{{ part.title }}</a>
-      </li>
-    {% else %}
-      {% if part.title == paginate.current_page %}
-        <li class="active"><span>{{ part.title }}</span></li>
-      {% else %}
-        <li><span>{{ part.title }}</span></li>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-
-  {% if paginate.next %}
-    <li><a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}">{% include "icon-arrow-right" %}</a></li>
+  <li><a href="{{ paginate.previous.url }}" title="{{ paginate.previous.title }}">{% include "icon-arrow-left" %}</p></a></li>
+  {% endif %} {% for part in paginate.parts %} {% if part.is_link %}
+  <li class="">
+      <a href="{{ part.url }}" title="">{{ part.title }}</a>
+  </li>
+  {% else %} {% if part.title == paginate.current_page %}
+  <li class="active"><span>{{ part.title }}</span></li>
+  {% else %}
+  <li><span>{{ part.title }}</span></li>
+  {% endif %} {% endif %} {% endfor %} {% if paginate.next %}
+  <li><a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}">{% include "icon-arrow-right" %}</a></li>
   {% endif %}
 </ul>

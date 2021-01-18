@@ -19,33 +19,34 @@
     </div>
   </div>
   {% endif %}
-  <div class="container-full margin-45">
-    <div class="container colunm">
+  <div class="container-full one-per-row-no-margin one-per-row-mobile margin-45">
+    <div class="container grid-el">
       <div class="slider blog-slider">
-        {%- assign blog = blogs[section.settings.blog] -%}
-		{% for article in blog.articles limit: 8 %}
-			{% if article.image %}
-				<div class="blog-el radius-all" style="background-image: url('{{ article.image | img_url: 'master' }}');">
-			{% else %}
-			<div class="blog-el radius-all" style="background-image: url('{{ 'blog.jpg' | asset_url }}');">
-				{% endif %}
-			<a href="{{ article.url }}"></a>
-			<div class="right">
-				<h2>{{ article.title | strip_html | truncatewords: 6 }}</h2>
-			</div>
-			<div class="dark-image-bg radius-all"></div>
-			</div>
+      {%- assign blog = blogs[section.settings.blog] -%}
+      {% for article in blog.articles limit: 8 %}
+      <div class="blog-el radius-all">
+        {% if article.image %}
+            <img src="{{ article.image | img_url: 'master' }}" alt="{{ article.title }}">
+        {% else %}
+            <img src="{{ 'blog.jpg' | asset_url }}" alt="{{ article.title }}">
+        {% endif %}
+        <a href="{{ article.url }}"></a>
+        <div class="blog-el-text">
+          <h2>{{ article.title | strip_html | truncatewords: 6 }}</h2>
+        </div>
+        <div class="dark-image-bg radius-all"></div>
+        </div>
         {% endfor %}
+        </div>
       </div>
     </div>
-    <div class="container row between vertical-center margin-top-15">
-      <div class="blog-slider-nav">
+    <div class="container grid-el row between vertical-center margin-top-15">
+      <div class="slick-slider-nav">
         <div class="arrow-left center-all">{% render "icon-arrow-left" %}</div>
         <div class="arrow-right center-all">{% render "icon-arrow-right" %}</div>
       </div>
       <a href="/blogs/news" class="link-dark">Read our blog</a>
     </div>
-  </div>
 </section>
 
 {% schema %}

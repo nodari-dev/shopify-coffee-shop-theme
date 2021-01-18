@@ -1,0 +1,114 @@
+<div class="container-full row start margin-top-100" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope itemtype="http://schema.org/Product">
+
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+  
+    <meta itemprop="name" content="{{ product.title }}{% unless product.has_only_default_variant %} - {{ current_variant.title }}{% endunless %}">
+    <meta itemprop="url" content="{{ shop.url }}{{ current_variant.url }}">
+    <meta itemprop="brand" content="{{ product.vendor }}">
+    <meta itemprop="image" content="{{ featured_image | img_url: '600x600' }}">
+    <meta itemprop="description" content="{{ product.description | strip_html | escape }}">
+
+    {% assign product_qty = 0 %}
+    {% for variant in product.variants %}
+      {% if variant.inventory_quantity > 0 %}
+        {% assign product_qty = product_qty | plus: variant.inventory_quantity %}
+      {% endif %}
+    {% endfor %}
+
+    <div class="container product-detail-photo margin-top-45 vertical-center one-per-row">
+        <div class="product-image-photo-wrap desktop grid-el one-per-row">     
+            {% for image in product.images %}
+            <div class="product-image-photo-block  grid-el radius-all">
+                <img class="radius-all" src="{{ image.src | product_img_url: '1440x' }}" alt="">
+            </div>
+        {% else %}
+            <div class="product-image-photo-block  grid-el radius-all">
+                <img class="radius-all" src="{{ 'product.jpg' | asset_url }}" alt="Product">
+            </div>
+        {% endfor %}
+        </div>
+        <div class="product-image-photo-wrap slider grid-el photo-slider mobile">     
+            {% for image in product.images %}
+            <div class="product-image-photo-block grid-el radius-all">
+                <img class="radius-all" src="{{ image.src | product_img_url: '1440x' }}" alt="">
+            </div>
+        {% else %}
+            <div class="product-image-photo-block grid-el radius-all">
+                <img class="radius-all" src="{{ 'product.jpg' | asset_url }}" alt="Product">
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% if product.images.size > 1 %}
+        <div class="container mobile">
+            <div class="slick-slider-nav">
+            <div class="arrow-left center-all">{% render "icon-arrow-left" %}</div>
+            <div class="arrow-right center-all">{% render "icon-arrow-right" %}</div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container product-detail-text margin-top-100 white-bg">
+        {% form 'product', product, class: 'product-main-form' %}
+            <div class="product-description-wrap">
+                <h1>{{ product.title }}</h1>
+                <h2 class="margin-bottom-30">
+                    {% if product.compare_at_price > product.price %} {% if product.price_varies %} {%- assign sale_price = product.price | money -%} {% else %} {{ product.price | money }} {% endif %} {% else %} {% if product.price_varies %} {%- assign price = product.price
+                    | money -%} {% else %} {{ product.price | money }} {% endif %} {% endif %} {% if product.compare_at_price > product.price %} {{ products.product.regular_price }}
+                    <s>{{ product.compare_at_price | money }}</s> {% endif %} {% unless product.available %} {{ 'products.product.sold_out' | t }} {% endunless %}
+                </h2>
+                <p class="description-text margin-bottom-15">{{ product.description | strip_html | truncatewords: 45 }}</p>
+                {% if product.description != blank %}
+                    <a href="#" class="read-more" id="read-more">Read more</a>
+                {% endif %} 
+                {% if settings.show_share_buttons %}
+                {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+            {% endif %}
+                <div class="product-action vertical-center margin-top-15 row radius-all">
+                    
+                    <select name="id" id="ProductSelect-{{ section.id }}" class="select-product-list radius-top-left">
+                        {% for variant in product.variants %}
+                            {% if variant.available %}
+                                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">
+                                    {{ variant.title }}
+                                    -
+                                    {{ variant.price | money_with_currency }}</option>
+                            {% else %}
+                                <option disabled="disabled">
+                                    {{ variant.title }}
+                                    -
+                                    {{ 'products.product.sold_out' | t }}
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <input min="1" type="number" id="quantity" class="product-page radius-top-right" name="quantity" value="1" />
+                    <button type="submit" name="add" id="AddToCart" class="radius-bottom product-page light-style" data-cart-url="{{ routes.cart_url }}">
+                            <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                        </button> {% if section.settings.enable_payment_button %} {{ form | payment_button }} {% endif %}
+                        <!-- <input type="hidden" name="return_to" value="back" /> -->
+                    </div>
+                
+                <h2 class="margin-top-30">Collections:</h2>
+                <div class="object-list">
+                    {% for collection in product.collections %}
+                    <a class="dark-style object-list-el radius-all" href="{{ collection.url }}">{{ collection.title }}</a> {% endfor %}
+                </div>
+            </div>
+        {% endform %}
+    </div>
+    <div class="container">
+        <div id="shopify-product-reviews" class="grid-el" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+    </div>
+    <div class="product-description-block dark-bg">
+        <div class="text-inner padding-20vw">
+            <h2>{{ product.title }}</h2>
+            {{ product.description }}
+            <div class="disable-read-mode">
+                <span class="radius-all"></span>
+                <span class="radius-all"></span>
+            </div>
+        </div>
+    </div>
+</div>

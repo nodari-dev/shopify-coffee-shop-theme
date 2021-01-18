@@ -1,48 +1,121 @@
-<div class="container-full index-10 full-height auto vertical-center dark-bg" style="background-image: url({{ section.settings.footer_bg | img_url: 'master' }});">
-  <div class="container">
-    <footer class="row">
-      <div class="footer-wrap">
-        <h2 class="big">Humanity runs on coffee</h2>
-      </div>
-      <div class="footer-wrap center-all">
-        <h2 class="margin-right-15">We are here</h2>
-        <ul class="row social radius-all">
-          <li><a href="">{% include "icon-facebook" %}</a></li>
-          <li><a href="">{% include "icon-twitter" %}</a></li>
-          <li><a href="">{% include "icon-youtube" %}</a></li>
+<footer class="full-width dark-bg margin-top-100">
+  <div class="container-full one-per-row-no-margin index-10 dark-bg">
+    <div class="container margin-45 two-per-row one-per-row-mobile">
+      <div class="footer-wrap grid-el">
+        <h2>Humanity runs on coffee</h2>
+        {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+        <ul class="social-footer four-per-row">
+          {% for social in social_accounts %}
+            {%- assign social_handle = social | handleize -%}
+            {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+            {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+      
+            {% if settings[social_link] != blank %}
+              <li class="grid-el">
+                <a href="{{ settings[social_link] }}" class="vertical-center" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                  {% include social_icon %}
+                  <span class="icon-fallback-text">{{ social }}</span>
+                </a>
+              </li>
+            {% endif %}
+      
+          {% endfor %}
         </ul>
       </div>
-      <div class="footer-wrap menu full-width row margin-top-30">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.122142493913!2d-122.4128846845441!3d37.78717721921855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808e4c2e1e5d%3A0x20cd7876b1d66114!2sStarbucks!5e0!3m2!1suk!2sua!4v1606343370381!5m2!1suk!2sua" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      <div class="footer-wrap menu grid-el">
+        {% for item in section.blocks %}
+        {% for footer in item.settings.footer_menu_el %}
+          <ul class="menu row">
+            {% for link in linklists[footer].links %}
+              {% if link.links != blank %}
+              <li>
+                <a class="" href="{{ link.url }}">{{ link.title }}</a>
+                <ul class="menu-child row">
+                  {% for childlink in link.links %}
+                    <li>
+                      <a class="" href="{{ childlink.url }}">{{ childlink.title }}</a>
+                        <ul class="menu-grandchild row">
+                        {% for grandchild_link in childlink.links %}
+                            <li><a class="" href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% else %}
+              <li>
+                <a class="" href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      {% endfor %}
       </div>
-      <div class="footer-wrap full-width margin-top-15">
+    </div>
+    <div class="container one-per-row-no-margin one-per-row-mobile">
+      <div class="footer-wrap grid-el margin-30">
         <p >{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }} Created by Nodari Pylypyshak</p>
       </div>
-    </footer>
+    </div>
+
+
+    {% if section.settings.show_payment_icons %}
+    {% unless shop.enabled_payment_types == empty %}
+      {%- assign payment_icons_available = 'amazon_payments,american_express,apple_pay,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' -%}
+
+      <span class="visually-hidden">{{ 'layout.footer.payment_methods' | t }}</span>
+      <ul class="payment-icons">
+        {% for type in shop.enabled_payment_types %}
+          {% if payment_icons_available contains type %}
+            <li>
+              {%- assign icon_name = type | prepend: 'icon-' -%}
+              {% include icon_name %}
+              <span class="visually-hidden">{{ type | capitalize | replace: '_', ' ' }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endunless %}
+  {% endif %}
   </div>
-  <div class="dark-image-bg"></div>
-</div>
+</footer>
+
 
 {% schema %}
   {
     "name": "Footer",
     "settings": [
       {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": false
+      }
+    ],
+    "blocks": [
+      {
         "type": "link_list",
-        "id": "footer_linklist",
-        "label": "First menu",
-        "default": "footer"
-      },
+        "name": "Footer linklist",
+        "settings": [
+          {
+            "label": "Footer menu",
+            "id": "footer_menu_el",
+            "type": "link_list"
+          }
+        ]
+      }
+    ],
+    "presets": [
       {
-        "type": "image_picker",
-        "id": "footer_bg",
-        "label": "Footer background"
-      },
-      {
-        "type": "text",
-        "id": "footer_text",
-        "label": "Type short info for footer",
-        "default": "Text here"
+        "name": "Footer menu list",
+        "category": "Footer",
+        "blocks": [
+          {
+            "type": "link_list"
+          }
+        ]
       }
     ]
   }

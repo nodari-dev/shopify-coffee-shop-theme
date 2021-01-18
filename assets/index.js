@@ -1,3 +1,4 @@
+
 var PostContent = $('div.post-info');
 $(".post-info > p").has("iframe").addClass("video-post");
 $(".post-info > p").has("img").addClass("image-post");
@@ -17,3 +18,4 @@ $(".close-menu").on('click', function() {
     $(".header-menu").addClass('hidden');
     $("body").removeClass('no-scroll');
 });
+
